@@ -135,8 +135,10 @@ public class EventActivity extends ActionBarActivity {
                     else orgTv.setVisibility(View.GONE);
 
                     if(event.getString("Rating")!=null) ratTv.setText(Html.fromHtml("<b>Rating:</b> " + event.getString("Rating")));
+                    else ratTv.setVisibility(View.GONE);
 
                     if(event.getString("Synopsis")!=null) sypTv.setText(Html.fromHtml("<b>Synopsis:</b><br>" + event.getString("Synopsis")));
+                    else sypTv.setVisibility(View.GONE);
 
                     ParseQuery<ParseObject> query2 = ParseQuery.getQuery("UserData");
                     query2.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
