@@ -54,7 +54,7 @@
         </activity>
         <activity
             android:name=".EventActivity"
-            android:label="EventActivity" >
+            android:label="Event Info" >
         </activity>
     </application>
 
