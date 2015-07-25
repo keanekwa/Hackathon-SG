@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/">
 
     <ImageView
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Category: Some Category"
-        android:id="@+id/eventCategory"
+        android:id="@+id/exploreCategory"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
@@ -43,7 +44,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Location: Singapore"
-        android:id="@+id/eventLocation"
+        android:id="@+id/exploreLocation"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="-2dp"
+        android:textColor="#666" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:id="@+id/exploreDate"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
@@ -54,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Organiser: abc"
-        android:id="@+id/eventOrganiser"
+        android:id="@+id/exploreOrganiser"
         android:layout_below="@+id/eventTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
