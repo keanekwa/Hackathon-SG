@@ -156,9 +156,18 @@ public class FriendsFragment extends Fragment {
             });
 
             ImageButton addFriendButt = (ImageButton)row.findViewById(R.id.addFriendButt);
-            addFriendButt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            TextView friendsTv = (TextView)row.findViewById(R.id.friendsText);
+            friendsTv.setText("");
+            if(ParseUser.getCurrentUser().getList("friendsList").contains(user)) {
+                friendsTv.setText("Friends");
+            }
+            else if (ParseUser.getCurrentUser().getUsername().equals(user.getUsername())){
+                friendsTv.setText("You");
+            }
+            else{
+                addFriendButt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                     ParseObject friendship = new ParseObject("Friendship");
                     friendship.put("fromId", ParseUser.getCurrentUser().getObjectId());
                     friendship.put("toId", user.getObjectId());
@@ -166,13 +175,14 @@ public class FriendsFragment extends Fragment {
                     friendship.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            if (e==null){
-                                Toast.makeText(getActivity(), "Friend request sent to "+user.getUsername()+"!", Toast.LENGTH_SHORT).show();
-                            }
+                        if (e == null) {
+                            Toast.makeText(getActivity(), "Friend request sent to " + user.getUsername() + "!", Toast.LENGTH_SHORT).show();
+                        }
                         }
                     });
-                }
-            });
+                    }
+                });
+            }
 
             return row;
         }
