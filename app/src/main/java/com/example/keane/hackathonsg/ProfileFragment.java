@@ -81,7 +81,8 @@ public class ProfileFragment extends Fragment {
 
             }
         }});
-
+        PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter, friendsArray);
+        friendsList.setAdapter(adapter);
         return view;
     }
 
@@ -95,12 +96,12 @@ public class ProfileFragment extends Fragment {
         super.onDetach();
     }
 
-    private class PhotosAdapter extends ArrayAdapter<ParseObject> {
+    private class PhotosAdapter extends ArrayAdapter<ParseUser> {
         //creating variables
         private int mResource;
-        private ArrayList<ParseObject> mFriends;
+        private ArrayList<ParseUser> mFriends;
 
-        public PhotosAdapter(Context context, int resource, ArrayList<ParseObject> friendsList) {
+        public PhotosAdapter(Context context, int resource, ArrayList<ParseUser> friendsList) {
             super(context, resource, friendsList);
             mResource = resource;
             mFriends = friendsList;
