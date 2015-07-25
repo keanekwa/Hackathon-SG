@@ -137,7 +137,7 @@ public class MainActivity extends ActionBarActivity
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         }
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
