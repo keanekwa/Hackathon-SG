@@ -2,6 +2,7 @@ package com.example.keane.hackathonsg;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,10 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.ParseObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +30,8 @@ public class ExploreFragment extends Fragment {
 
     public static ArrayList<ParseObject> artsEvents;
     private Menu mMenu;
+
+    private ListView mListView;
 
     public ExploreFragment() {
         // Required empty public constructor
@@ -43,7 +49,9 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
-
+        mListView = (ListView)view.findViewById(R.id.exploreListView);
+        EventsAdaptor adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents);
+        mListView.setAdapter(adaptor);
         return view;
     }
 
@@ -100,4 +108,46 @@ public class ExploreFragment extends Fragment {
         dialog.show();
     }
 
+    private class EventsAdaptor extends ArrayAdapter<ParseObject>{
+        private int mResource;
+        private ArrayList<ParseObject> mEventsList;
+
+        public EventsAdaptor(Context context, int res, ArrayList<ParseObject> list){
+            super(context, res, list);
+            mResource = res;
+            mEventsList = list;
+        }
+
+        @Override
+        public View getView(final int pos, View row, ViewGroup parent){
+            if(row == null){
+                row = LayoutInflater.from(getContext()).inflate(mResource, parent, false);
+            }
+
+            final ParseObject event = mEventsList.get(pos);
+
+            TextView titleTv = (TextView)row.findViewById(R.id.exploreTitle);
+            TextView catTv = (TextView)row.findViewById(R.id.exploreCategory);
+            TextView locationTv = (TextView)row.findViewById(R.id.exploreLocation);
+            TextView orgTv = (TextView)row.findViewById(R.id.exploreOrganiser);
+
+            titleTv.setText(event.getString("Title"));
+            catTv.setText(event.getString("Genre"));
+
+            String locText = "";
+            if(event.getString("Block")!=null) locText += (event.getString("Block") + " ");
+            if(event.getString("Street")!=null) locText += (event.getString("Street") + " ");
+            if(event.getString("BuildingName")!=null) locText += (event.getString("BuildingName") + " ");
+            if(event.getString("Floor")!=null){
+                if(event.getString("UnitNumber")!=null) locText += ("#" +event.getString("Floor")+ "-"+ event.getString("UnitNumber"));
+                else locText += ("Level " + event.getString("Floor"));
+            }
+            locationTv.setText(locText);
+
+            if(event.getString("Organiser")!=null) orgTv.setText(event.getString("Organiser"));
+            else orgTv.setText(event.getString("Title"));
+
+            return row;
+        }
+    }
 }
