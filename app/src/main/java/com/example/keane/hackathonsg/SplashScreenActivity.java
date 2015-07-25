@@ -31,11 +31,8 @@ public class SplashScreenActivity extends ActionBarActivity {
                 ExploreFragment.allEvents.addAll(ExploreFragment.artsEvents);
                 for (int i = 0; i < ExploreFragment.artsEvents.size(); i++) {
                     ExploreFragment.artsEvents.get(i).put("Category", "Arts");
-                    if (ExploreFragment.artsEvents.get(i).get("rating")==null){
-                        ExploreFragment.artsEvents.get(i).put("rating", 0);
-                    }
-                    if (ExploreFragment.artsEvents.get(i).get("noOfRaters")==null){
-                        ExploreFragment.artsEvents.get(i).put("noOfRaters", 0);
+                    if (ExploreFragment.artsEvents.get(i).get("Rating")==null){
+                        ExploreFragment.artsEvents.get(i).put("Rating", "General");
                     }
                 }
                 ParseQuery<ParseObject> query2 = new ParseQuery<>("artsEvents");
