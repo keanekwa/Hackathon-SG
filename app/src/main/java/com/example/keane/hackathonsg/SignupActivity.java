@@ -15,6 +15,8 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
+
 public class SignupActivity extends Activity {
 
     private TextView mUsernameBlank, mPasswordBlank, mCPasswordBlank, mEmailAddBlank;
@@ -54,9 +56,12 @@ public class SignupActivity extends Activity {
                 }
                 else {
                     ParseUser userObject = new ParseUser();
+                    ArrayList <String> arrayList = new ArrayList<>();
                     userObject.setUsername(usernameInput);
                     userObject.setPassword(passwordInput);
                     userObject.setEmail(emailInput);
+                    userObject.put("noOfJios", 0);
+                    userObject.put("friendsList", arrayList);
                     userObject.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
