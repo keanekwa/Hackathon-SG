@@ -69,8 +69,8 @@ public class ExploreFragment extends Fragment {
         mHotButton = (Button)view.findViewById(R.id.hotButton);
         if (determinant == null){
             determinant = "All Events";
-            setExploreListView(determinant);
         }
+        setExploreListView(determinant);
         mComingUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,18 +162,7 @@ public class ExploreFragment extends Fragment {
                 buttonAll("All");
                 break;
         }
-        mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                EventActivity newFragment = new EventActivity();
-                newFragment.eventId = artsEvents.get(position).getObjectId();
-                fragmentManager.beginTransaction().replace(R.id.container, newFragment).commit();*/
-                Intent intent = new Intent(getActivity(), EventActivity.class);
-                EventActivity.eventId = artsEvents.get(position).getObjectId();
-                startActivity(intent);
-            }
-        });
+
     }
 
     private void buttonAll(String determinant) {
@@ -183,10 +172,26 @@ public class ExploreFragment extends Fragment {
                 case 0:
                     EventsAdaptor adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents2);
                     mComingUpView.setAdapter(adaptor);
+                    mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), EventActivity.class);
+                            EventActivity.eventId = allEvents2.get(position).getObjectId();
+                            startActivity(intent);
+                        }
+                    });
                     break;
                 case 1:
                     EventsAdaptor adaptor2 = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents3);
                     mComingUpView.setAdapter(adaptor2);
+                    mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), EventActivity.class);
+                            EventActivity.eventId = allEvents3.get(position).getObjectId();
+                            startActivity(intent);
+                        }
+                    });
                     break;
             }
                 break;
@@ -196,10 +201,26 @@ public class ExploreFragment extends Fragment {
                     case 0:
                         EventsAdaptor adaptor3 = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents2);
                         mComingUpView.setAdapter(adaptor3);
+                        mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(getActivity(), EventActivity.class);
+                                EventActivity.eventId = artsEvents2.get(position).getObjectId();
+                                startActivity(intent);
+                            }
+                        });
                         break;
                     case 1:
                         EventsAdaptor adaptor4 = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents3);
                         mComingUpView.setAdapter(adaptor4);
+                        mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(getActivity(), EventActivity.class);
+                                EventActivity.eventId = artsEvents3.get(position).getObjectId();
+                                startActivity(intent);
+                            }
+                        });
                         break;
                 }
                 break;}

@@ -131,9 +131,9 @@ public class EventActivity extends ActionBarActivity {
                     if(event.getString("Synopsis")!=null) sypText += ("\n" + event.getString("Synopsis"));
                     sypTv.setText(sypText);
 
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("UserData");
-                    query.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
-                    query.findInBackground(new FindCallback<ParseObject>() {
+                    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("UserData");
+                    query2.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
+                    query2.findInBackground(new FindCallback<ParseObject>() {
                         @Override
                         public void done(List<ParseObject> parseObjects, ParseException e) {
                             if(e==null && parseObjects.size()==1){
