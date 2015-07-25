@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +26,7 @@ import com.parse.ParseObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class ExploreFragment extends Fragment {
 
@@ -280,6 +282,17 @@ public class ExploreFragment extends Fragment {
             TextView locationTv = (TextView)row.findViewById(R.id.exploreLocation);
             TextView orgTv = (TextView)row.findViewById(R.id.exploreOrganiser);
             TextView dateTv = (TextView)row.findViewById(R.id.exploreDate);
+            TextView icon = (TextView)row.findViewById(R.id.exploreIcon);
+
+            icon.setText(event.getString("Title").substring(0, 1));
+            Random r = new Random();
+            int iconNum = r.nextInt(5 - 1) + 1;
+            if (iconNum == 1) { icon.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.icon1))); }
+            else if (iconNum == 2) { icon.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.icon2))); }
+            else if (iconNum == 3) { icon.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.icon3))); }
+            else if (iconNum == 4) { icon.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.icon4))); }
+            else if (iconNum == 5) { icon.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.icon5))); }
+            else { icon.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.icon1))); }
 
             titleTv.setText(event.getString("Title"));
 
