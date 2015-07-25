@@ -54,7 +54,7 @@
         </activity>
         <activity
             android:name=".EventActivity"
-            android:label="EventFragment" >
+            android:label="EventActivity" >
         </activity>
     </application>
 

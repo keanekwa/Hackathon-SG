@@ -2,14 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.keane.hackathonsg.EventActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Title"
-        android:id="@+id/eventTitle" />
+        android:id="@+id/eventTitle"
+        android:textColor="#333"
+        android:textStyle="bold"
+        android:textSize="18dp" />
 
     <TextView
         android:layout_width="wrap_content"

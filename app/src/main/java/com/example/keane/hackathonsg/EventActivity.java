@@ -1,7 +1,9 @@
 package com.example.keane.hackathonsg;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -52,6 +54,7 @@ public class EventActivity extends ActionBarActivity {
         setContentView(R.layout.activity_event);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
 
         jioButt = (Button)findViewById(R.id.eventJioButt);
         goButt = (Button)findViewById(R.id.eventGoButt);
@@ -91,7 +94,13 @@ public class EventActivity extends ActionBarActivity {
                     event = parseObject;
 
                     titleTv.setText(event.getString("Title"));
-                    if(event.getString("Genre")!=null) catTv.setText(event.getString("Genre"));
+
+                    if(event.getString("Genre")!=null) {
+                        catTv.setText(Html.fromHtml("<b>Category:</b> " + event.getString("Category") + " - " + event.getString("Genre")));
+                    }
+                    else {
+                        catTv.setText(Html.fromHtml("<b>Category:</b> " + event.getString("Category")));
+                    }
 
                     String locText = "";
                     if(event.getString("Block")!=null) locText += (event.getString("Block") + " ");
@@ -101,14 +110,19 @@ public class EventActivity extends ActionBarActivity {
                         if(event.getString("UnitNumber")!=null) locText += ("#" +event.getString("Floor")+ "-"+ event.getString("UnitNumber"));
                         else locText += ("Level " + event.getString("Floor"));
                     }
-                    locTv.setText(locText);
+                    if (locText.matches("")) {
+                        locTv.setVisibility(View.GONE);
+                    }
+                    else {
+                        locTv.setText(Html.fromHtml("<b>Location:</b> " + locText));
+                    }
 
-                    if(event.getString("Organiser")!=null) orgTv.setText(event.getString("Organiser"));
+                    if(event.getString("Organiser")!=null) orgTv.setText(Html.fromHtml("<b>Organiser:</b> " + event.getString("Organiser")));
                     else orgTv.setVisibility(View.GONE);
 
                     if(event.getString("Date")!=null && event.getString("Date2")!=null){
-                        if(event.getString("Date").equals(event.getString("Date2"))) dateTv.setText(event.getString("Date"));
-                        else dateTv.setText(event.getString("Date") + " - " + event.getString("Date2"));
+                        if(event.getString("Date").equals(event.getString("Date2"))) dateTv.setText(Html.fromHtml("<b>Date:</b> " + event.getString("Date")));
+                        else dateTv.setText(Html.fromHtml("<b>Date:</b> " + event.getString("Date") + " - " + event.getString("Date2")));
                     }
 
                     String sypText = "";

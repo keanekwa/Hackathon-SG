@@ -265,14 +265,19 @@ public class ExploreFragment extends Fragment {
                 if(event.getString("UnitNumber")!=null) locText += ("#" +event.getString("Floor")+ "-"+ event.getString("UnitNumber"));
                 else locText += ("Level " + event.getString("Floor"));
             }
-            locationTv.setText(Html.fromHtml("<b>Location:</b> " + locText));
+            if (locText.matches("")) {
+                locationTv.setVisibility(View.GONE);
+            }
+            else {
+                locationTv.setText(Html.fromHtml("<b>Location:</b> " + locText));
+            }
 
             if(event.getString("Organiser")!=null) orgTv.setText(Html.fromHtml("<b>Organiser:</b> " + event.getString("Organiser")));
             else orgTv.setVisibility(View.GONE);
 
             if(event.getString("Date")!=null && event.getString("Date2")!=null){
                 if(event.getString("Date").equals(event.getString("Date2"))) dateTv.setText(Html.fromHtml("<b>Date:</b> " + event.getString("Date")));
-                else dateTv.setText(Html.fromHtml("<b>Date:</b> " + event.getString(" Date ") + " - " + event.getString("Date2")));
+                else dateTv.setText(Html.fromHtml("<b>Date:</b> " + event.getString("Date") + " - " + event.getString("Date2")));
             }
 
             return row;
