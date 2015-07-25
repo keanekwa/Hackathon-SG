@@ -46,8 +46,7 @@ public class ExploreFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
         mListView = (ListView)view.findViewById(R.id.exploreListView);
-        EventsAdaptor adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents);
-        mListView.setAdapter(adaptor);
+        setExploreListView("arts");
         return view;
     }
 
@@ -104,6 +103,19 @@ public class ExploreFragment extends Fragment {
         dialog.show();
     }
 
+    private void setExploreListView(String eventType){
+        EventsAdaptor adaptor;
+        switch(eventType) {
+            case "arts":
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents);
+                break;
+            default:
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents);
+                break;
+        }
+        mListView.setAdapter(adaptor);
+    }
+
     private class EventsAdaptor extends ArrayAdapter<ParseObject>{
         private int mResource;
         private ArrayList<ParseObject> mEventsList;
@@ -126,6 +138,7 @@ public class ExploreFragment extends Fragment {
             TextView catTv = (TextView)row.findViewById(R.id.exploreCategory);
             TextView locationTv = (TextView)row.findViewById(R.id.exploreLocation);
             TextView orgTv = (TextView)row.findViewById(R.id.exploreOrganiser);
+            TextView dateTv = (TextView)row.findViewById(R.id.exploreDate);
 
             titleTv.setText(event.getString("Title"));
             catTv.setText(event.getString("Genre"));
@@ -142,6 +155,11 @@ public class ExploreFragment extends Fragment {
 
             if(event.getString("Organiser")!=null) orgTv.setText(event.getString("Organiser"));
             else orgTv.setText(event.getString("Title"));
+
+            if(event.getString("Date")!=null && event.getString("Date2")!=null){
+                if(event.getString("Date").equals(event.getString("Date2"))) dateTv.setText(event.getString("Date"));
+                else dateTv.setText(event.getString("Date") + " - " + event.getString("Date2"));
+            }
 
             return row;
         }
