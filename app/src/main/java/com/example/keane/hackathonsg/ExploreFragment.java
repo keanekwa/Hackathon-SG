@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +21,7 @@ import com.parse.ParseObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class ExploreFragment extends Fragment {
@@ -107,10 +109,10 @@ public class ExploreFragment extends Fragment {
         EventsAdaptor adaptor;
         switch(eventType) {
             case "arts":
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents);
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents, "Arts");
                 break;
             default:
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents);
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents, "Arts");
                 break;
         }
         mListView.setAdapter(adaptor);
@@ -119,11 +121,13 @@ public class ExploreFragment extends Fragment {
     private class EventsAdaptor extends ArrayAdapter<ParseObject>{
         private int mResource;
         private ArrayList<ParseObject> mEventsList;
+        private String mCategory;
 
-        public EventsAdaptor(Context context, int res, ArrayList<ParseObject> list){
+        public EventsAdaptor(Context context, int res, ArrayList<ParseObject> list, String category){
             super(context, res, list);
             mResource = res;
             mEventsList = list;
+            mCategory = category;
         }
 
         @Override
@@ -141,7 +145,8 @@ public class ExploreFragment extends Fragment {
             TextView dateTv = (TextView)row.findViewById(R.id.exploreDate);
 
             titleTv.setText(event.getString("Title"));
-            catTv.setText(event.getString("Genre"));
+            catTv.setText(Html.fromHtml("<b>Category:</b> " + mCategory + " - " + event.getString("Genre")));
+
 
             String locText = "";
             if(event.getString("Block")!=null) locText += (event.getString("Block") + " ");
@@ -151,14 +156,14 @@ public class ExploreFragment extends Fragment {
                 if(event.getString("UnitNumber")!=null) locText += ("#" +event.getString("Floor")+ "-"+ event.getString("UnitNumber"));
                 else locText += ("Level " + event.getString("Floor"));
             }
-            locationTv.setText(locText);
+            locationTv.setText(Html.fromHtml("<b>Location:</b> " + locText));
 
-            if(event.getString("Organiser")!=null) orgTv.setText(event.getString("Organiser"));
-            else orgTv.setText(event.getString("Title"));
+            if(event.getString("Organiser")!=null) orgTv.setText(Html.fromHtml("<b>Organiser:</b> " + event.getString("Organiser")));
+            else orgTv.setVisibility(View.GONE);
 
             if(event.getString("Date")!=null && event.getString("Date2")!=null){
-                if(event.getString("Date").equals(event.getString("Date2"))) dateTv.setText(event.getString("Date"));
-                else dateTv.setText(event.getString("Date") + " - " + event.getString("Date2"));
+                if(event.getString("Date").equals(event.getString("Date2"))) dateTv.setText(Html.fromHtml("<b>Date:</b> " + event.getString("Date")));
+                else dateTv.setText(Html.fromHtml("<b>Date:</b> " + event.getString(" Date ") + " - " + event.getString("Date2")));
             }
 
             return row;
