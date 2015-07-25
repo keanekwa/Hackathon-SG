@@ -72,11 +72,12 @@ public class ProfileFragment extends Fragment {
             public void done(List<ParseUser> parseObjects, ParseException e) {
                 if (e == null) {
                     friendsArray.clear();
-                    List<ParseUser> parseFriends = currentUser.getList("friendsList");
+                    List<String> parseFriends = currentUser.getList("friendsList");
                     for (int i = 0; i < parseFriends.size(); i++){
                     for (int j = 0; j < parseObjects.size(); j++) {
-                        if(parseFriends.get(i).toString()==parseObjects.get(j).getString("username"))
-                        friendsArray.add(parseObjects.get(j));
+                        if(parseFriends.get(i).toString().equals(parseObjects.get(j).getString("username"))) {
+                            friendsArray.add(parseObjects.get(j));
+                        }
                     }}
 
             }
