@@ -26,6 +26,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Date"
+        android:id="@+id/eventDate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Organiser"
         android:id="@+id/eventOrganiser" />
 

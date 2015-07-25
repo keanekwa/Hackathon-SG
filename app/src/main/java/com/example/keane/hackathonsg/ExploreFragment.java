@@ -1,10 +1,11 @@
 package com.example.keane.hackathonsg;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -114,6 +116,15 @@ public class ExploreFragment extends Fragment {
                 break;
         }
         mListView.setAdapter(adaptor);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                EventFragment newFragment = new EventFragment();
+                newFragment.eventId = artsEvents.get(position).getObjectId();
+                fragmentManager.beginTransaction().replace(R.id.container, newFragment).commit();
+            }
+        });
     }
 
     private class EventsAdaptor extends ArrayAdapter<ParseObject>{
@@ -141,7 +152,8 @@ public class ExploreFragment extends Fragment {
             TextView dateTv = (TextView)row.findViewById(R.id.exploreDate);
 
             titleTv.setText(event.getString("Title"));
-            catTv.setText(event.getString("Genre"));
+            if(event.getString("Genre")!=null) catTv.setText(event.getString("Genre"));
+            else catTv.setVisibility(View.GONE);
 
             String locText = "";
             if(event.getString("Block")!=null) locText += (event.getString("Block") + " ");
@@ -154,7 +166,7 @@ public class ExploreFragment extends Fragment {
             locationTv.setText(locText);
 
             if(event.getString("Organiser")!=null) orgTv.setText(event.getString("Organiser"));
-            else orgTv.setText(event.getString("Title"));
+            else orgTv.setVisibility(View.GONE);
 
             if(event.getString("Date")!=null && event.getString("Date2")!=null){
                 if(event.getString("Date").equals(event.getString("Date2"))) dateTv.setText(event.getString("Date"));
