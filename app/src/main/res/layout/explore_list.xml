@@ -11,19 +11,15 @@
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:background="#f5f5f5"
-        android:layout_gravity="center_vertical"
-        />
+        android:layout_gravity="center_vertical"/>
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="title"
-        android:id="@+id/eventTitle"
+        android:id="@+id/exploreTitle"
         android:textSize="18sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/red"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"/>
@@ -66,9 +62,6 @@
         android:layout_height="wrap_content"
         android:text="Organiser: abc"
         android:id="@+id/exploreOrganiser"
-        android:layout_below="@+id/eventTitle"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textColor="#666"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
