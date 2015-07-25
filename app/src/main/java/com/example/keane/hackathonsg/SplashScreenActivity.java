@@ -21,6 +21,7 @@ public class SplashScreenActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        getSupportActionBar().hide();
         ParseQuery<ParseObject> query = new ParseQuery<>("artsEvents");
         query.addAscendingOrder("Date");
         query.findInBackground(new FindCallback<ParseObject>() {

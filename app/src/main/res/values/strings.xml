@@ -20,9 +20,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_signup">SignupActivity</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="space">" "</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="title_activity_event">EventActivity</string>
+    <string name="subtitle">Feeling bored? Jio or friends to the most exciting activities happening around Singapore or get your friends to jio you!</string>
 </resources>
