@@ -29,6 +29,11 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if(ParseUser.getCurrentUser()!=null){
+            Intent intent = new Intent(LoginActivity.this, SplashScreenActivity.class);
+            startActivity(intent);
+        }
+
         mSignUpTextView = (TextView) findViewById(R.id.signUpTextView);
         mSignUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +66,7 @@ public class LoginActivity extends Activity {
                         if (user != null && e == null) {
                             userBlank.setText("");
                             passBlank.setText("");
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, SplashScreenActivity.class);
                             startActivity(intent);
                         } else {
                             alertMessage("This user does not exist. Please sign up.");
