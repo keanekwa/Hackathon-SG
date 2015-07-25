@@ -22,7 +22,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends Fragment {
+public class SearchFragment extends Fragment {
     ParseUser currentUser = ParseUser.getCurrentUser();
     String usernameText;
     String jioText;
@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
     TextView jioTextView;
     ArrayList<ParseUser>friendsArray = new ArrayList<>();
 
-    public ProfileFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
