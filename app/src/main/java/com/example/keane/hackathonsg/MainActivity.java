@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(final List<ParseObject> parseObjects, ParseException e) {
-                if(e==null && parseObjects.size()==1){
+                if (e == null && parseObjects.size() == 1) {
                     ParseUser.getCurrentUser().addUnique("friendsList", parseObjects.get(0).getObjectId());
                     ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
                         @Override
@@ -130,14 +130,14 @@ public class MainActivity extends ActionBarActivity
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(mTitle);
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         }
-
-
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
