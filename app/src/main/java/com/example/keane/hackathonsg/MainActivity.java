@@ -56,12 +56,12 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.title_section1);
                 break;
             case 1:
-                newFragment = new ArtsFragment();
+                newFragment = new WhereYoureJioedFragment();
                 mTitle = getString(R.string.title_section2);
                 break;
 
             case 2:
-                newFragment = new WhereYoureJioedFragment();
+                newFragment = new ProfileFragment();
                 mTitle = getString(R.string.title_section3);
                 break;
             case 3:
