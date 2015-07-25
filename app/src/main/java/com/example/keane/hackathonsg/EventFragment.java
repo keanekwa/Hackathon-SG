@@ -181,7 +181,7 @@ public class EventFragment extends Fragment {
         currentUserData.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if(e==null) Toast.makeText(getActivity(), "Sucessfully "+info, Toast.LENGTH_LONG).show();
+                if(e==null) Toast.makeText(getActivity(), "Sucessfully "+info, Toast.LENGTH_SHORT).show();
             }
         });
     }
