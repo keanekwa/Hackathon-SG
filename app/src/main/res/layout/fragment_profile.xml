@@ -61,9 +61,9 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:id="@+id/friendsListView"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal|bottom"/>
 
     </LinearLayout>
 
