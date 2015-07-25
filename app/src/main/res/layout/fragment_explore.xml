@@ -7,21 +7,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
         android:orientation="vertical"
         >
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_height="wrap_content"
+            android:background="@color/blue">
 
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Coming Up"
+                android:background="@android:color/transparent"
+                style="?android:attr/borderlessButtonStyle"
                 android:id="@+id/comingUpButton"
                 android:textColor="#ffffff"
                 android:padding="16dp"
@@ -30,6 +31,8 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_weight="1"
                 android:text="Hot"
                 android:id="@+id/hotButton"
@@ -39,20 +42,11 @@
                 android:padding="16dp"/>
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="425dp"
-            android:layout_gravity="center_horizontal"
-            >
-
-            <ListView
-                android:layout_width="fill_parent"
-                android:layout_height="433dp"
-                android:id="@+id/exploreListView"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_weight="3"/>
-
-        </RelativeLayout>
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/exploreListView"
+            android:layout_gravity="center_horizontal|top" />
 
     </LinearLayout>
 

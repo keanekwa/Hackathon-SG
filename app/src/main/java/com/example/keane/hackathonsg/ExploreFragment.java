@@ -71,11 +71,19 @@ public class ExploreFragment extends Fragment {
             determinant = "All Events";
         }
         setExploreListView(determinant);
+        mComingUpButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bottom_border));
+        mComingUpButton.setTextColor(getResources().getColor(R.color.white));
+        mHotButton.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+        mHotButton.setTextColor(getResources().getColor(R.color.translucent_white));
         mComingUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentItem = 0;
                 setExploreListView(determinant);
+                mComingUpButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bottom_border));
+                mComingUpButton.setTextColor(getResources().getColor(R.color.white));
+                mHotButton.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                mHotButton.setTextColor(getResources().getColor(R.color.translucent_white));
             }
         });
         mHotButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +91,10 @@ public class ExploreFragment extends Fragment {
             public void onClick(View v) {
                 currentItem = 1;
                 setExploreListView(determinant);
+                mHotButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bottom_border));
+                mHotButton.setTextColor(getResources().getColor(R.color.white));
+                mComingUpButton.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                mComingUpButton.setTextColor(getResources().getColor(R.color.translucent_white));
             }
         });
 
