@@ -27,6 +27,8 @@ import java.util.List;
 public class ExploreFragment extends Fragment {
 
     public static ArrayList<ParseObject> artsEvents;
+    public static ArrayList<ParseObject> sportsEvents = new ArrayList<>();
+    public static ArrayList<ParseObject> allEvents;
     private Menu mMenu;
 
     private ListView mListView;
@@ -48,7 +50,7 @@ public class ExploreFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
         mListView = (ListView)view.findViewById(R.id.exploreListView);
-        setExploreListView("arts");
+        setExploreListView("All Events");
         return view;
     }
 
@@ -66,6 +68,8 @@ public class ExploreFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         mMenu = menu;
         inflater.inflate(R.menu.menu_explore, menu);
+        MenuItem item = mMenu.findItem(R.id.action_categories);
+        item.setTitle("Category:" + getString(R.string.space) + "All Events");
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -94,6 +98,7 @@ public class ExploreFragment extends Fragment {
                 List<String> array = Arrays.asList(getResources().getStringArray(R.array.mCategoryList));
                 MenuItem item = mMenu.findItem(R.id.action_categories);
                 item.setTitle("Category:" + getString(R.string.space) + array.get(which));
+                setExploreListView(array.get(which));
             }
         });
         builder.setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -108,11 +113,17 @@ public class ExploreFragment extends Fragment {
     private void setExploreListView(String eventType){
         EventsAdaptor adaptor;
         switch(eventType) {
-            case "arts":
+            case "All Events":
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents, "All Events");
+                break;
+            case "Arts":
                 adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents, "Arts");
                 break;
+            case "Sports":
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, sportsEvents, "Sports");
+                break;
             default:
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents, "Arts");
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents, "All Events");
                 break;
         }
         mListView.setAdapter(adaptor);
@@ -145,8 +156,12 @@ public class ExploreFragment extends Fragment {
             TextView dateTv = (TextView)row.findViewById(R.id.exploreDate);
 
             titleTv.setText(event.getString("Title"));
-            catTv.setText(Html.fromHtml("<b>Category:</b> " + mCategory + " - " + event.getString("Genre")));
-
+            if (mCategory.matches("All Events")) {
+                catTv.setText(Html.fromHtml("<b>Category:</b> " + event.getString("Category") + " - " + event.getString("Genre")));
+            }
+            else {
+                catTv.setText(Html.fromHtml("<b>Category:</b> " + mCategory + " - " + event.getString("Genre")));
+            }
 
             String locText = "";
             if(event.getString("Block")!=null) locText += (event.getString("Block") + " ");

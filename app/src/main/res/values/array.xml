@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="mCategoryList">
+        <item>All Events</item>
         <item>Arts</item>
-        <item>Park</item>
+        <item>Sports</item>
     </string-array>
 </resources>

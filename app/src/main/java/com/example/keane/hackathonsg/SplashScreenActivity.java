@@ -26,6 +26,11 @@ public class SplashScreenActivity extends ActionBarActivity {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 ExploreFragment.artsEvents = new ArrayList<>(list);
+                ExploreFragment.allEvents =  new ArrayList<>();
+                ExploreFragment.allEvents.addAll(ExploreFragment.artsEvents);
+                for (int i = 0; i < ExploreFragment.artsEvents.size(); i++) {
+                    ExploreFragment.artsEvents.get(i).put("Category", "Arts");
+                }
                 Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                 startActivity(intent);
             }
