@@ -23,6 +23,7 @@ import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,13 +140,13 @@ public class FriendsFragment extends Fragment {
                 row = LayoutInflater.from(getContext()).inflate(mResource, parent, false);
             }
 
-            final ParseObject currentTopImage = mFriends.get(position);
+            final ParseUser user = mFriends.get(position);
             TextView titleTextView = (TextView) row.findViewById(R.id.friendUsernameTextView2);
-            titleTextView.setText(currentTopImage.getString("username"));
+            titleTextView.setText(user.getString("username"));
 
             //set like button status on create
             ParseImageView likeImageView = (ParseImageView) row.findViewById(R.id.friendImageView2);
-            likeImageView.setParseFile(currentTopImage.getParseFile("profilePic"));
+            likeImageView.setParseFile(user.getParseFile("profilePic"));
             likeImageView.setPlaceholder(getResources().getDrawable(R.drawable.defaultuserimage));
             likeImageView.loadInBackground(new GetDataCallback() {
                 @Override
@@ -153,6 +154,26 @@ public class FriendsFragment extends Fragment {
 
                 }
             });
+
+            ImageButton addFriendButt = (ImageButton)row.findViewById(R.id.addFriendButt);
+            addFriendButt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ParseObject friendship = new ParseObject("Friendship");
+                    friendship.put("fromId", ParseUser.getCurrentUser().getObjectId());
+                    friendship.put("toId", user.getObjectId());
+                    friendship.put("accepted", false);
+                    friendship.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e==null){
+                                Toast.makeText(getActivity(), "Friend request sent to "+user.getUsername()+"!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            });
+
             return row;
         }
     }

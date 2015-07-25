@@ -2,8 +2,9 @@
     <string name="app_name">Bojio?</string>
 
     <string name="title_section1">Explore</string>
-    <string name="title_section2">Where You Are Jioed</string>
+    <string name="title_section2">Activity</string>
     <string name="title_section3">Profile</string>
+    <string name="title_section4">Find Friends</string>
     <string name="logout">Logout</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

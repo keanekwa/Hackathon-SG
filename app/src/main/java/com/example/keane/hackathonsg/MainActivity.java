@@ -9,7 +9,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity
@@ -43,6 +50,24 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        ParseQuery<ParseObject> query = new ParseQuery<>("Friendship");
+        query.whereEqualTo("fromId", ParseUser.getCurrentUser().getObjectId());
+        query.whereEqualTo("accepted", true);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(final List<ParseObject> parseObjects, ParseException e) {
+                if(e==null && parseObjects.size()==1){
+                    ParseUser.getCurrentUser().addUnique("friendsList", parseObjects.get(0).getObjectId());
+                    ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            parseObjects.get(0).deleteInBackground();
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override
@@ -54,9 +79,9 @@ public class MainActivity extends ActionBarActivity
                 newFragment = new ExploreFragment();
                 mTitle = getString(R.string.title_section1);
                 break;
+
             case 1:
-                newFragment = new FriendsFragment();
-                //TODO Change back this to WhereYoureJioedFragment
+                newFragment = new ActionFragment();
                 mTitle = getString(R.string.title_section2);
                 break;
 
@@ -64,7 +89,13 @@ public class MainActivity extends ActionBarActivity
                 newFragment = new ProfileFragment();
                 mTitle = getString(R.string.title_section3);
                 break;
+
             case 3:
+                newFragment = new FriendsFragment();
+                mTitle = getString(R.string.title_section4);
+                break;
+
+            case 4:
                 ParseUser.logOutInBackground();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
@@ -88,6 +119,9 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.title_section3);
                 break;
             case 4:
+                mTitle = getString(R.string.title_section4);
+                break;
+            case 5:
                 mTitle = getString(R.string.logout);
                 break;
         }
@@ -95,9 +129,11 @@ public class MainActivity extends ActionBarActivity
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        if(actionBar!=null) {
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(mTitle);
+        }
     }
 
 

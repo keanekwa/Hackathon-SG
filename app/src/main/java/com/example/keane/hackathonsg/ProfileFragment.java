@@ -20,6 +20,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -64,30 +65,15 @@ public class ProfileFragment extends Fragment {
                 }
             });
         }
+
         ParseQuery<ParseUser> query = ParseUser.getQuery();
-        query.addDescendingOrder("username");
+        query.whereContainedIn("objectId", ParseUser.getCurrentUser().getList("friendsList"));
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
-            public void done(List<ParseUser> parseObjects, ParseException e) {
-                if (e == null) {
-                    friendsArray.clear();
-                    List<String> parseFriends = currentUser.getList("friendsList");
-                    for (int i = 0; i < parseFriends.size(); i++) {
-                        for (int j = 0; j < parseObjects.size(); j++) {
-                            if (parseFriends.get(i).toString().equals(parseObjects.get(j).getString("username"))) {
-                                friendsArray.add(parseObjects.get(j));
-                                break;
-                            }
-                            else if (j == parseObjects.size()){
-                                break;
-                            }
-                        }
-                    }
-                    friendsList = (ListView)view.findViewById(R.id.friendsListView);
-                    PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter, friendsArray);
-                    friendsList.setAdapter(adapter);
-
-                }
+            public void done(List<ParseUser> parseUsers, ParseException e) {
+                friendsList = (ListView)view.findViewById(R.id.friendsListView);
+                PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter, friendsArray);
+                friendsList.setAdapter(adapter);
             }
         });
 

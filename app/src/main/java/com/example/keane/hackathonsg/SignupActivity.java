@@ -12,10 +12,15 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SignupActivity extends Activity {
 
@@ -55,25 +60,33 @@ public class SignupActivity extends Activity {
                     mCPasswordBlank.setText("");
                 }
                 else {
-                    ParseUser userObject = new ParseUser();
+                    final ParseUser userObject = new ParseUser();
                     ArrayList <String> arrayList = new ArrayList<>();
                     userObject.setUsername(usernameInput);
                     userObject.setPassword(passwordInput);
                     userObject.setEmail(emailInput);
                     userObject.put("noOfJios", 0);
-                    userObject.put("friendsList", arrayList);
                     userObject.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
                             if(e == null) {
-                                ParseUser.logInInBackground(usernameInput, passwordInput, new LogInCallback() {
-                                    public void done(ParseUser user, ParseException e) {
-                                        if (user != null && e == null) {
-                                            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                                            SignupActivity.this.startActivity(intent);
-                                        } else {
-                                            alertMessage(e.toString());
-                                        }
+                                ParseObject userData = new ParseObject("UserData");
+                                userData.put("username", userObject.getUsername());
+                                userData.put("userId", userObject.getObjectId());
+                                userData.put("friendsIdArray", new ArrayList<>());
+                                userData.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        ParseUser.logInInBackground(usernameInput, passwordInput, new LogInCallback() {
+                                            public void done(ParseUser user, ParseException e) {
+                                                if (user != null && e == null) {
+                                                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                                                    SignupActivity.this.startActivity(intent);
+                                                } else {
+                                                    alertMessage(e.toString());
+                                                }
+                                            }
+                                        });
                                     }
                                 });
                             }
