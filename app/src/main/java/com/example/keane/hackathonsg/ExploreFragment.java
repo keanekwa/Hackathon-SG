@@ -16,11 +16,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ExploreFragment extends Fragment {
 
+    public static ArrayList<ParseObject> artsEvents;
     private Menu mMenu;
 
     public ExploreFragment() {

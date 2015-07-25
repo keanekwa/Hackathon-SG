@@ -17,8 +17,6 @@ import java.util.List;
 
 public class SplashScreenActivity extends ActionBarActivity {
 
-    public static ArrayList<ParseObject> listOfArtsEvents;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +25,7 @@ public class SplashScreenActivity extends ActionBarActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                listOfArtsEvents = new ArrayList<>(list);
+                ExploreFragment.artsEvents = new ArrayList<>(list);
                 Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                 startActivity(intent);
             }
