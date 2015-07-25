@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_profile, container, false);
+       final View view = inflater.inflate(R.layout.fragment_profile, container, false);
         jioText = "You have been jioed " + currentUser.getInt("noOfJios") + " times.";
         usernameText = currentUser.getString("username");
         usernameTextView = (TextView) view.findViewById(R.id.usernameText);
@@ -64,7 +64,6 @@ public class ProfileFragment extends Fragment {
                 }
             });
         }
-        friendsList = (ListView)view.findViewById(R.id.friendsListView);
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.addDescendingOrder("username");
         query.findInBackground(new FindCallback<ParseUser>() {
@@ -73,17 +72,25 @@ public class ProfileFragment extends Fragment {
                 if (e == null) {
                     friendsArray.clear();
                     List<String> parseFriends = currentUser.getList("friendsList");
-                    for (int i = 0; i < parseFriends.size(); i++){
-                    for (int j = 0; j < parseObjects.size(); j++) {
-                        if(parseFriends.get(i).toString().equals(parseObjects.get(j).getString("username"))) {
-                            friendsArray.add(parseObjects.get(j));
+                    for (int i = 0; i < parseFriends.size(); i++) {
+                        for (int j = 0; j < parseObjects.size(); j++) {
+                            if (parseFriends.get(i).toString().equals(parseObjects.get(j).getString("username"))) {
+                                friendsArray.add(parseObjects.get(j));
+                                break;
+                            }
+                            else if (j == parseObjects.size()){
+                                break;
+                            }
                         }
-                    }}
+                    }
+                    friendsList = (ListView)view.findViewById(R.id.friendsListView);
+                    PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter, friendsArray);
+                    friendsList.setAdapter(adapter);
 
+                }
             }
-        }});
-        PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter, friendsArray);
-        friendsList.setAdapter(adapter);
+        });
+
         return view;
     }
 
@@ -119,7 +126,7 @@ public class ProfileFragment extends Fragment {
             TextView titleTextView = (TextView) row.findViewById(R.id.friendUsernameTextView);
             titleTextView.setText(currentTopImage.getString("username"));
             TextView subtitleTextView = (TextView) row.findViewById(R.id.friendJioText);
-            subtitleTextView.setText("Has been jioed " + currentTopImage.getInt("noOfJios" + " times."));
+            subtitleTextView.setText("Has been jioed " + currentTopImage.getInt("noOfJios") + " times.");
 
             //set like button status on create
             ParseImageView likeImageView = (ParseImageView) row.findViewById(R.id.friendImageView);

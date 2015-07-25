@@ -1,10 +1,11 @@
 package com.example.keane.hackathonsg;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -114,31 +116,38 @@ public class ExploreFragment extends Fragment {
         EventsAdaptor adaptor;
         switch(eventType) {
             case "All Events":
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents, "All Events");
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents);
                 break;
             case "Arts":
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents, "Arts");
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents);
                 break;
             case "Sports":
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, sportsEvents, "Sports");
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, sportsEvents);
                 break;
             default:
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents, "All Events");
+                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents);
                 break;
         }
         mListView.setAdapter(adaptor);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                EventFragment newFragment = new EventFragment();
+                newFragment.eventId = artsEvents.get(position).getObjectId();
+                fragmentManager.beginTransaction().replace(R.id.container, newFragment).commit();
+            }
+        });
     }
 
     private class EventsAdaptor extends ArrayAdapter<ParseObject>{
         private int mResource;
         private ArrayList<ParseObject> mEventsList;
-        private String mCategory;
 
-        public EventsAdaptor(Context context, int res, ArrayList<ParseObject> list, String category){
+        public EventsAdaptor(Context context, int res, ArrayList<ParseObject> list){
             super(context, res, list);
             mResource = res;
             mEventsList = list;
-            mCategory = category;
         }
 
         @Override
@@ -156,11 +165,12 @@ public class ExploreFragment extends Fragment {
             TextView dateTv = (TextView)row.findViewById(R.id.exploreDate);
 
             titleTv.setText(event.getString("Title"));
-            if (mCategory.matches("All Events")) {
+
+            if(event.getString("Genre")!=null) {
                 catTv.setText(Html.fromHtml("<b>Category:</b> " + event.getString("Category") + " - " + event.getString("Genre")));
             }
             else {
-                catTv.setText(Html.fromHtml("<b>Category:</b> " + mCategory + " - " + event.getString("Genre")));
+                catTv.setText(Html.fromHtml("<b>Category:</b> " + event.getString("Category")));
             }
 
             String locText = "";

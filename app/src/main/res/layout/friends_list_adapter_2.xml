@@ -8,7 +8,7 @@
     <com.parse.ParseImageView
         android:layout_width="79dp"
         android:layout_height="76dp"
-        android:id="@+id/friendImageView"
+        android:id="@+id/friendImageView2"
         />
 
     <RelativeLayout
@@ -20,20 +20,11 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/friendJioText"
-            android:layout_alignParentBottom="true"
+            android:id="@+id/friendUsernameTextView2"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/friendUsernameTextView"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/friendImageView"
-            android:layout_toEndOf="@+id/friendImageView"/>
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"/>
     </RelativeLayout>
 
 </LinearLayout>
