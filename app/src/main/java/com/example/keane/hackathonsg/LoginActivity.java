@@ -33,7 +33,7 @@ public class LoginActivity extends ActionBarActivity {
         mSignUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 LoginActivity.this.startActivity(intent);
             }
         });
@@ -45,7 +45,6 @@ public class LoginActivity extends ActionBarActivity {
         final ProgressDialog mLoginLoader = new ProgressDialog(LoginActivity.this);
         mLoginLoader.setMessage("Logging in...");
         mLoginLoader.setIndeterminate(true);
-        mLoginLoader.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progress_bar_red));
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +64,7 @@ public class LoginActivity extends ActionBarActivity {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
-                            alertMessage(e.toString());
+                            alertMessage("This user does not exist. Please sign up.");
                         }
                     }
                 });
