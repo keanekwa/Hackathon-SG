@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -169,6 +171,12 @@ public class EventActivity extends ActionBarActivity {
                 goButt.setVisibility(View.INVISIBLE);
                 pangButt.setVisibility(View.VISIBLE);
                 jioButt.setVisibility(View.VISIBLE);
+                currentUserData.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e==null) Toast.makeText(getActivity(), "You're going for this event! :D", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case "pang":
                 if(wasUserJioed) {
@@ -179,17 +187,69 @@ public class EventActivity extends ActionBarActivity {
                 goButt.setVisibility(View.VISIBLE);
                 pangButt.setVisibility(View.INVISIBLE);
                 jioButt.setVisibility(View.INVISIBLE);
+                currentUserData.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e==null) Toast.makeText(getActivity(), "You just pangseh-ed ):", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case "jio":
+                final ListSelectorDialog friendsDialog = new ListSelectorDialog(getActivity(), "Friend to Jio");
+                ParseQuery<ParseUser> query = ParseUser.getQuery();
+                query.whereContainedIn("objectId", ParseUser.getCurrentUser().getList("friendsList"));
+                query.findInBackground(new FindCallback<ParseUser>() {
+                    @Override
+                    public void done(List<ParseUser> parseUsers, ParseException e) {
+                        if(e==null){
+                            List<String> usernameList = new ArrayList<>();
+                            for (int i =0; i<parseUsers.size(); i++){
+                                usernameList.add(parseUsers.get(i).getUsername());
+                            }
+                            String[] userArray = new String[usernameList.size()];
+                            userArray = usernameList.toArray(userArray);
+
+                            List<String> idList = new ArrayList<>();
+                            for (int i =0; i<parseUsers.size(); i++){
+                                idList.add(parseUsers.get(i).getObjectId());
+                            }
+                            String[] idArray = new String[idList.size()];
+                            idArray = idList.toArray(idArray);
+
+                            friendsDialog.show(userArray, idArray, new ListSelectorDialog.listSelectorInterface() {
+                                public void selectorCanceled() {
+                                    //Bloop
+                                }
+                                public void selectedItem(String key, String item) {
+                                    ParseQuery<ParseObject> query = new ParseQuery<>("UserData");
+                                    query.whereEqualTo("userId", item);
+                                    query.findInBackground(new FindCallback<ParseObject>() {
+                                        @Override
+                                        public void done(List<ParseObject> parseObjects, ParseException e) {
+                                            if(e==null && parseObjects.size()==1){
+                                                final ParseObject userData = parseObjects.get(0);
+                                                if(userData.getList("jioedTo")==null) {
+                                                    userData.put("jioedTo", eventId);
+                                                }
+                                                else{
+                                                    userData.addUnique("jioedTo", eventId);
+                                                }
+                                                userData.saveInBackground(new SaveCallback() {
+                                                    @Override
+                                                    public void done(ParseException e) {
+                                                        Toast.makeText(getActivity(), "Sucessfully jioed "+userData.getString("username"), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
                 break;
         }
-        currentUserData.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null)
-                    Toast.makeText(EventActivity.this, "Sucessfully " + info, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
