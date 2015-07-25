@@ -3,9 +3,9 @@ package com.example.keane.hackathonsg;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -165,10 +165,13 @@ public class ExploreFragment extends Fragment {
         mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                EventFragment newFragment = new EventFragment();
+                /*FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                EventActivity newFragment = new EventActivity();
                 newFragment.eventId = artsEvents.get(position).getObjectId();
-                fragmentManager.beginTransaction().replace(R.id.container, newFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.container, newFragment).commit();*/
+                Intent intent = new Intent(getActivity(), EventActivity.class);
+                EventActivity.eventId = artsEvents.get(position).getObjectId();
+                startActivity(intent);
             }
         });
     }

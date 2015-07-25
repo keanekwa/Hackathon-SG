@@ -1,12 +1,9 @@
 package com.example.keane.hackathonsg;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +19,7 @@ import com.parse.SaveCallback;
 import java.util.Arrays;
 import java.util.List;
 
-public class EventFragment extends Fragment {
+public class EventActivity extends ActionBarActivity {
 
     public static String eventId;
     public static String eventLocation;
@@ -45,30 +42,27 @@ public class EventFragment extends Fragment {
     private TextView orgTv;
     private TextView sypTv;
 
-    public EventFragment() {
+    public EventActivity() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_event);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_event, container, false);
-        jioButt = (Button)view.findViewById(R.id.eventJioButt);
-        goButt = (Button)view.findViewById(R.id.eventGoButt);
-        pangButt = (Button)view.findViewById(R.id.eventPangButt);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        titleTv = (TextView)view.findViewById(R.id.eventTitle);
-        catTv = (TextView)view.findViewById(R.id.eventCategory);
-        locTv = (TextView)view.findViewById(R.id.eventLocation);
-        dateTv = (TextView)view.findViewById(R.id.eventDate);
-        orgTv = (TextView)view.findViewById(R.id.eventOrganiser);
-        sypTv = (TextView)view.findViewById(R.id.eventSynopsis);
+        jioButt = (Button)findViewById(R.id.eventJioButt);
+        goButt = (Button)findViewById(R.id.eventGoButt);
+        pangButt = (Button)findViewById(R.id.eventPangButt);
+
+        titleTv = (TextView)findViewById(R.id.eventTitle);
+        catTv = (TextView)findViewById(R.id.eventCategory);
+        locTv = (TextView)findViewById(R.id.eventLocation);
+        dateTv = (TextView)findViewById(R.id.eventDate);
+        orgTv = (TextView)findViewById(R.id.eventOrganiser);
+        sypTv = (TextView)findViewById(R.id.eventSynopsis);
 
         jioButt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,13 +138,10 @@ public class EventFragment extends Fragment {
                     });
                 }
                 else {
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    ExploreFragment newFragment = new ExploreFragment();
-                    fragmentManager.beginTransaction().replace(R.id.container, newFragment).commit();
+                    finish();
                 }
             }
         });
-        return view;
     }
 
     private void setUserGoingOrJioed(final String info){
@@ -181,19 +172,22 @@ public class EventFragment extends Fragment {
         currentUserData.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if(e==null) Toast.makeText(getActivity(), "Sucessfully "+info, Toast.LENGTH_SHORT).show();
+                if (e == null)
+                    Toast.makeText(EventActivity.this, "Sucessfully " + info, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
