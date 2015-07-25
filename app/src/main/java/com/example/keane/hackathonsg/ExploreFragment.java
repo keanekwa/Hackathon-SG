@@ -1,11 +1,11 @@
 package com.example.keane.hackathonsg;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,17 +24,29 @@ import com.parse.ParseObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class ExploreFragment extends Fragment {
 
     public static ArrayList<ParseObject> artsEvents;
+    public static ArrayList<ParseObject> artsEvents2;
+    public static ArrayList<ParseObject> artsEvents3;
     public static ArrayList<ParseObject> sportsEvents = new ArrayList<>();
     public static ArrayList<ParseObject> allEvents;
+    public static ArrayList<ParseObject> allEvents2;
+    public static ArrayList<ParseObject> allEvents3;
     private Menu mMenu;
+    private Button mComingUpButton;
+    private Button mHotButton;
+    public static Integer currentItem=0;
+    public static String determinant;
 
-    private ListView mListView;
+
+    String COMING_UP_STRING = "Coming Up";
+    String HOT_STRING = "Hot";
+    private ListView mComingUpView;
+    private ListView mHotView;
+
 
     public ExploreFragment() {
         // Required empty public constructor
@@ -51,8 +64,28 @@ public class ExploreFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
-        mListView = (ListView)view.findViewById(R.id.exploreListView);
-        setExploreListView("All Events");
+        mComingUpView = (ListView)view.findViewById(R.id.exploreListView);
+        mComingUpButton = (Button) view.findViewById(R.id.comingUpButton);
+        mHotButton = (Button)view.findViewById(R.id.hotButton);
+        if (determinant == null){
+            determinant = "All Events";
+            setExploreListView(determinant);
+        }
+        mComingUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentItem = 0;
+                setExploreListView(determinant);
+            }
+        });
+        mHotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentItem = 1;
+                setExploreListView(determinant);
+            }
+        });
+
         return view;
     }
 
@@ -100,6 +133,7 @@ public class ExploreFragment extends Fragment {
                 List<String> array = Arrays.asList(getResources().getStringArray(R.array.mCategoryList));
                 MenuItem item = mMenu.findItem(R.id.action_categories);
                 item.setTitle("Category:" + getString(R.string.space) + array.get(which));
+                determinant = array.get(which);
                 setExploreListView(array.get(which));
             }
         });
@@ -113,23 +147,22 @@ public class ExploreFragment extends Fragment {
     }
 
     private void setExploreListView(String eventType){
-        EventsAdaptor adaptor;
+
         switch(eventType) {
             case "All Events":
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents);
+                buttonAll("All");
                 break;
             case "Arts":
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents);
+                buttonAll("Arts");
                 break;
             case "Sports":
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, sportsEvents);
+                buttonAll("Sports");
                 break;
             default:
-                adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents);
+                buttonAll("All");
                 break;
         }
-        mListView.setAdapter(adaptor);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -139,6 +172,54 @@ public class ExploreFragment extends Fragment {
             }
         });
     }
+
+    private void buttonAll(String determinant) {
+        switch(determinant) {
+            case "All":
+            switch (currentItem) {
+                case 0:
+                    EventsAdaptor adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents2);
+                    mComingUpView.setAdapter(adaptor);
+                    break;
+                case 1:
+                    EventsAdaptor adaptor2 = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents3);
+                    mComingUpView.setAdapter(adaptor2);
+                    break;
+            }
+                break;
+            case "Arts":
+            {
+                switch (currentItem){
+                    case 0:
+                        EventsAdaptor adaptor3 = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents2);
+                        mComingUpView.setAdapter(adaptor3);
+                        break;
+                    case 1:
+                        EventsAdaptor adaptor4 = new EventsAdaptor(getActivity(), R.layout.explore_list, artsEvents3);
+                        mComingUpView.setAdapter(adaptor4);
+                        break;
+                }
+                break;}
+                case "Sports":
+                {
+                    switch (currentItem){
+                        case 0:
+                            EventsAdaptor adaptor3 = new EventsAdaptor(getActivity(), R.layout.explore_list, sportsEvents);
+                            mComingUpView.setAdapter(adaptor3);
+                            break;
+                        case 1:
+                            EventsAdaptor adaptor4 = new EventsAdaptor(getActivity(), R.layout.explore_list, sportsEvents);
+                            mComingUpView.setAdapter(adaptor4);
+                            break;
+                    }
+                    break;
+
+            }
+        }
+
+    }
+
+
 
     private class EventsAdaptor extends ArrayAdapter<ParseObject>{
         private int mResource;

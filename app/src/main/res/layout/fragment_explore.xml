@@ -4,11 +4,56 @@
              android:layout_height="match_parent"
              tools:context="com.example.keane.hackathonsg.ExploreFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="vertical"
+        >
 
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/exploreListView"
-        android:layout_gravity="center_horizontal|top" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Coming Up"
+                android:id="@+id/comingUpButton"
+                android:textColor="#ffffff"
+                android:padding="16dp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Hot"
+                android:id="@+id/hotButton"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:padding="16dp"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="425dp"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="433dp"
+                android:id="@+id/exploreListView"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_weight="3"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </FrameLayout>
