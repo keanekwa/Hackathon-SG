@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
                     friendsArray.add(parseUsers.get(i));
                 }
                 friendsList = (ListView) view.findViewById(R.id.friendsListView);
-                PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter, friendsArray);
+                PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.jio_friends_list_adapter, friendsArray);
                 friendsList.setAdapter(adapter);
             }
         });
