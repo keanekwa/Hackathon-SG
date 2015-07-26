@@ -171,27 +171,31 @@ public class ExploreFragment extends Fragment {
             switch (currentItem) {
                 case 0:
                     EventsAdaptor adaptor = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents2);
-                    mComingUpView.setAdapter(adaptor);
-                    mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getActivity(), EventActivity.class);
-                            EventActivity.eventId = allEvents2.get(position).getObjectId();
-                            startActivity(intent);
-                        }
-                    });
+                   if (mComingUpView!=null) {
+                       mComingUpView.setAdapter(adaptor);
+                       mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                           @Override
+                           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                               Intent intent = new Intent(getActivity(), EventActivity.class);
+                               EventActivity.eventId = allEvents2.get(position).getObjectId();
+                               startActivity(intent);
+                           }
+                       });
+                   }
                     break;
                 case 1:
                     EventsAdaptor adaptor2 = new EventsAdaptor(getActivity(), R.layout.explore_list, allEvents3);
-                    mComingUpView.setAdapter(adaptor2);
-                    mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getActivity(), EventActivity.class);
-                            EventActivity.eventId = allEvents3.get(position).getObjectId();
-                            startActivity(intent);
-                        }
-                    });
+                    if (mComingUpView!=null) {
+                        mComingUpView.setAdapter(adaptor2);
+                        mComingUpView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(getActivity(), EventActivity.class);
+                                EventActivity.eventId = allEvents3.get(position).getObjectId();
+                                startActivity(intent);
+                            }
+                        });
+                    }
                     break;
             }
                 break;

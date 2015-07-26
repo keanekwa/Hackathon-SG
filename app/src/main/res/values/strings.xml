@@ -25,4 +25,5 @@
     <string name="space">" "</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_jio">JioActivity</string>
 </resources>

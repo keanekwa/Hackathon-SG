@@ -56,6 +56,10 @@
             android:name=".EventActivity"
             android:label="EventActivity" >
         </activity>
+        <activity
+            android:name=".JioActivity"
+            android:label="@string/title_activity_jio" >
+        </activity>
     </application>
 
 </manifest>
