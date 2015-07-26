@@ -56,7 +56,6 @@ public class SearchFragment extends Fragment {
         loading.setVisibility(View.GONE);
         searchText = (EditText)view.findViewById(R.id.searchText);
         confirmButton = (ImageButton)view.findViewById(R.id.confirm_search);
-        backButton = (ImageButton)view.findViewById(R.id.backArrow);
         noResults = (RelativeLayout)view.findViewById(R.id.noResults);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
