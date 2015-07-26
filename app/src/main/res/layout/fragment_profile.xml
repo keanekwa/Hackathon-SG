@@ -61,7 +61,7 @@
         android:paddingTop="15dp"
         android:paddingBottom="10dp"
         android:textColor="#333"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">

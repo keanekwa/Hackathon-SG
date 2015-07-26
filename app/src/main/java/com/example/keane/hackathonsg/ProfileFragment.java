@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragment {
                     friendsArray.add(parseUsers.get(i));
                 }
                 friendsList = (ListView) view.findViewById(R.id.friendsListView);
-                PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.jio_friends_list_adapter, friendsArray);
+                PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.profile_friends_list_adapter, friendsArray);
                 friendsList.setAdapter(adapter);
             }
         });
@@ -111,7 +111,7 @@ public class ProfileFragment extends Fragment {
             }
 
             final ParseObject currentTopImage = mFriends.get(position);
-            TextView titleTextView = (TextView) row.findViewById(R.id.friendUsernameTextView);
+            TextView titleTextView = (TextView) row.findViewById(R.id.profileFriendUsernameTextView);
             titleTextView.setText(currentTopImage.getString("username"));
             final TextView subtitleTextView = (TextView) row.findViewById(R.id.noOfJiosText);
 
@@ -125,9 +125,9 @@ public class ProfileFragment extends Fragment {
             });
 
             //set like button status on create
-            ParseImageView likeImageView = (ParseImageView) row.findViewById(R.id.friendImageView);
+            ParseImageView likeImageView = (ParseImageView) row.findViewById(R.id.profileFriendImageView);
             likeImageView.setParseFile(currentTopImage.getParseFile("profilePic"));
-            likeImageView.setPlaceholder(getResources().getDrawable(R.drawable.defaultuserimage));
+            likeImageView.setPlaceholder(getResources().getDrawable(R.drawable.bojioicon));
             likeImageView.loadInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] bytes, ParseException e) {
