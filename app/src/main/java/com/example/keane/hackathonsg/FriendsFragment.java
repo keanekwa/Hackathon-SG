@@ -34,7 +34,6 @@ public class FriendsFragment extends Fragment {
     EditText searchText;
     private ProgressBar loading;
     ImageButton confirmButton;
-    ImageButton backButton;
     String searchQuery;
     RelativeLayout noResults;
 
@@ -59,7 +58,6 @@ public class FriendsFragment extends Fragment {
         loading.setVisibility(View.INVISIBLE);
         searchText = (EditText)view.findViewById(R.id.searchTextBar);
         confirmButton = (ImageButton)view.findViewById(R.id.confirm_search_2);
-        backButton = (ImageButton)view.findViewById(R.id.backArrow2);
         noResults = (RelativeLayout)view.findViewById(R.id.noResults2);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -74,12 +72,6 @@ public class FriendsFragment extends Fragment {
                     mRESULTS.clear();
                     search();
                 }
-            }
-        });
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         });
 
