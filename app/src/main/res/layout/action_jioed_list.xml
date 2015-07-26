@@ -11,7 +11,9 @@
         android:gravity="center"
         android:padding="10dp"
         android:id="@+id/jioedTv"
-        tools:text="ad jio-ed you to VOICES"/>
+        tools:text="ad jio-ed you to VOICES"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,20 +24,29 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/jioedAcceptButt"
-            android:text="accept"/>
+            android:text="accept"
+            android:layout_margin="10dp"
+            android:background="@color/blue"
+            android:textColor="@color/white" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/jioedEventButt"
-            android:text="more info"/>
+            android:text="more info"
+            android:layout_margin="10dp"
+            android:background="@color/blue"
+            android:textColor="@color/white" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/jioedDeclineButt"
-            android:text="decline"/>
+            android:text="decline"
+            android:layout_margin="10dp"
+            android:background="@color/blue"
+            android:textColor="@color/white" />
         </LinearLayout>
 </LinearLayout>

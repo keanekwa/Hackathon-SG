@@ -3,6 +3,7 @@ package com.example.keane.hackathonsg;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -266,6 +267,7 @@ public class JioCentreFragment extends Fragment {
             final ParseObject jio = mJiosList.get(pos);
             final TextView jiosTv = (TextView)row.findViewById(R.id.jiosTv);
             final TextView statusTv = (TextView)row.findViewById(R.id.jiosStatusTv);
+            final Button jiosButt = (Button)row.findViewById(R.id.jiosEventButt);
 
             ParseQuery<ParseObject> query = new ParseQuery<>("artsEvents");
             query.getInBackground(jio.getString("eventId"), new GetCallback<ParseObject>() {
@@ -291,7 +293,7 @@ public class JioCentreFragment extends Fragment {
                             }
                         }
                         else{
-                            statusTv.setText("");
+                            statusTv.setText(jio.getString("toUser") + " has yet to respond to your jio.");
                         }
                     }
                 }
@@ -344,8 +346,9 @@ public class JioCentreFragment extends Fragment {
                                 jio.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(ParseException e) {
-                                        mJioed.remove(jio);
-                                        setListView("jioed");
+                                        jioedAcceptButt.setText("accepted");
+                                        jioedAcceptButt.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.grey)));
+                                        jioedAcceptButt.setClickable(false);
                                     }
                                 });
                             }
