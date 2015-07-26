@@ -20,7 +20,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -71,7 +70,10 @@ public class ProfileFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> parseUsers, ParseException e) {
-                friendsList = (ListView)view.findViewById(R.id.friendsListView);
+                for (int i = 0; i < parseUsers.size(); i++){
+                    friendsArray.add(parseUsers.get(i));
+                }
+                    friendsList = (ListView)view.findViewById(R.id.friendsListView);
                 PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter, friendsArray);
                 friendsList.setAdapter(adapter);
             }
