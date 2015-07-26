@@ -67,6 +67,12 @@ public class JioCentreFragment extends Fragment {
             public void done(List<ParseObject> parseObjects, ParseException e) {
                 if(e==null) {
                     mRequests = new ArrayList<>(parseObjects);
+                    requestButt.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bottom_border));
+                    requestButt.setTextColor(getResources().getColor(R.color.white));
+                    jiosButt.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                    jiosButt.setTextColor(getResources().getColor(R.color.translucent_white));
+                    jioedButt.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                    jioedButt.setTextColor(getResources().getColor(R.color.translucent_white));
                     setListView("request");
                 }
             }
@@ -98,18 +104,36 @@ public class JioCentreFragment extends Fragment {
         requestButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                requestButt.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bottom_border));
+                requestButt.setTextColor(getResources().getColor(R.color.white));
+                jiosButt.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                jiosButt.setTextColor(getResources().getColor(R.color.translucent_white));
+                jioedButt.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                jioedButt.setTextColor(getResources().getColor(R.color.translucent_white));
                 setListView("request");
             }
         });
         jiosButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                jiosButt.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bottom_border));
+                jiosButt.setTextColor(getResources().getColor(R.color.white));
+                requestButt.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                requestButt.setTextColor(getResources().getColor(R.color.translucent_white));
+                jioedButt.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                jioedButt.setTextColor(getResources().getColor(R.color.translucent_white));
                 setListView("jios");
             }
         });
         jioedButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                jioedButt.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bottom_border));
+                jioedButt.setTextColor(getResources().getColor(R.color.white));
+                jiosButt.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                jiosButt.setTextColor(getResources().getColor(R.color.translucent_white));
+                requestButt.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+                requestButt.setTextColor(getResources().getColor(R.color.translucent_white));
                 setListView("jioed");
             }
         });

@@ -10,33 +10,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="3"
+        android:background="@color/blue"
+        android:baselineAligned="false"
+        android:paddingBottom="0dp">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Friend Requests"
-            android:id="@+id/requestTab"/>
+            android:id="@+id/requestTab"
+            android:background="@android:color/transparent"
+            android:textColor="@color/translucent_white"
+            android:padding="10dp"
+            android:layout_gravity="bottom" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Jio others"
-            android:id="@+id/jiosTab"/>
+            android:id="@+id/jiosTab"
+            android:background="@android:color/transparent"
+            android:textColor="@color/translucent_white"
+            android:padding="10dp"
+            android:layout_gravity="bottom" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Got jioed"
-            android:id="@+id/jioedTab"/>
+            android:text="Got jio-ed"
+            android:id="@+id/jioedTab"
+            android:background="@android:color/transparent"
+            android:textColor="@color/translucent_white"
+            android:padding="10dp"
+            android:layout_gravity="bottom" />
 
         </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="fill_parent">
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
