@@ -262,11 +262,9 @@ public class ActionFragment extends Fragment {
                         if(jio.get("accepted")!=null){
                             if(jio.getBoolean("accepted")){
                                 statusTv.setText(jio.getString("toUser")+" accepted! Enjoy!");
-                                jio.deleteInBackground();
                             }
                             else {
                                 statusTv.setText(jio.getString("toUser")+" declined! Jio someone else ):");
-                                jio.deleteInBackground();
                             }
                         }
                         else{

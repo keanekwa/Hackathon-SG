@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.parse.CountCallback;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -122,8 +123,16 @@ public class ProfileFragment extends Fragment {
             final ParseObject currentTopImage = mFriends.get(position);
             TextView titleTextView = (TextView) row.findViewById(R.id.friendUsernameTextView);
             titleTextView.setText(currentTopImage.getString("username"));
-            TextView subtitleTextView = (TextView) row.findViewById(R.id.friendJioText);
-            subtitleTextView.setText("Has been jioed " + currentTopImage.getInt("noOfJios") + " times.");
+            final TextView subtitleTextView = (TextView) row.findViewById(R.id.friendJioText);
+
+            ParseQuery<ParseObject> query = new ParseQuery<>("Jio");
+            query.whereEqualTo("toUser", ParseUser.getCurrentUser().getUsername());
+            query.countInBackground(new CountCallback() {
+                @Override
+                public void done(int i, ParseException e) {
+                    subtitleTextView.setText("Has been jioed " + String.valueOf(i) + " times.");
+                }
+            });
 
             //set like button status on create
             ParseImageView likeImageView = (ParseImageView) row.findViewById(R.id.friendImageView);

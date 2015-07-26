@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.CountCallback;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -82,7 +83,6 @@ public class FriendsFragment extends Fragment {
         loading.setVisibility(View.VISIBLE);
         noResults.setVisibility(View.INVISIBLE);
         final ParseQuery<ParseUser> query = ParseUser.getQuery();
-        query.addDescendingOrder("username");
         query.whereContains("username", searchQuery);
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
@@ -92,6 +92,7 @@ public class FriendsFragment extends Fragment {
                         mRESULTS.add(parseObjects.get(j));
                     }
                     loading.setVisibility(View.VISIBLE);
+                    mRESULTS.remove(ParseUser.getCurrentUser());
                     PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter_2, mRESULTS);
                     mListView.setVisibility(View.VISIBLE);
                     mListView.setAdapter(adapter);
@@ -147,35 +148,48 @@ public class FriendsFragment extends Fragment {
                 }
             });
 
-            ImageButton addFriendButt = (ImageButton)row.findViewById(R.id.addFriendButt);
-            TextView friendsTv = (TextView)row.findViewById(R.id.friendsText);
-            friendsTv.setText("");
-            if(ParseUser.getCurrentUser().getList("friendsList").contains(user)) {
-                friendsTv.setText("Friends");
-            }
-            else if (ParseUser.getCurrentUser().getUsername().equals(user.getUsername())){
-                friendsTv.setText("You");
-            }
-            else{
-                addFriendButt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    ParseObject friendship = new ParseObject("Friendship");
-                    friendship.put("fromId", ParseUser.getCurrentUser().getObjectId());
-                    friendship.put("toId", user.getObjectId());
-                    friendship.put("accepted", false);
-                    friendship.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                        if (e == null) {
-                            Toast.makeText(getActivity(), "Friend request sent to " + user.getUsername() + "!", Toast.LENGTH_SHORT).show();
-                        }
-                        }
-                    });
-                    }
-                });
-            }
+            final ImageButton addFriendButt = (ImageButton)row.findViewById(R.id.addFriendButt);
+            final TextView friendsTv = (TextView)row.findViewById(R.id.friendsText);
 
+            ParseQuery<ParseObject> query = new ParseQuery<>("Friendship");
+            query.whereEqualTo("accepted", null);
+            query.whereEqualTo("fromId", ParseUser.getCurrentUser().getObjectId());
+            query.whereEqualTo("toId", user.getObjectId());
+            query.countInBackground(new CountCallback() {
+                @Override
+                public void done(int i, ParseException e) {
+                    addFriendButt.setVisibility(View.INVISIBLE);
+                    if(ParseUser.getCurrentUser().getList("friendsList").contains(user)) {
+                        friendsTv.setText("Friends");
+                    }
+                    else if (i>0){
+                        friendsTv.setText("Friend Request Sent");
+                    }
+                    else{
+                        friendsTv.setText("");
+                        addFriendButt.setVisibility(View.VISIBLE);
+                        addFriendButt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ParseObject friendship = new ParseObject("Friendship");
+                                friendship.put("fromId", ParseUser.getCurrentUser().getObjectId());
+                                friendship.put("toId", user.getObjectId());
+                                friendship.put("accepted", false);
+                                friendship.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            friendsTv.setText("Friend Request Sent");
+                                            addFriendButt.setVisibility(View.INVISIBLE);
+                                            Toast.makeText(getActivity(), "Friend request sent to " + user.getUsername() + "!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            });
             return row;
         }
     }
