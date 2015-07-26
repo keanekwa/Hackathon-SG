@@ -45,7 +45,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       final View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        final View view = inflater.inflate(R.layout.fragment_profile, container, false);
         jioText = "You have been jioed " + currentUser.getInt("noOfJios") + " times.";
         usernameText = currentUser.getString("username");
         usernameTextView = (TextView) view.findViewById(R.id.usernameText);
@@ -53,6 +53,7 @@ public class ProfileFragment extends Fragment {
         usernameTextView.setText(usernameText);
         jioTextView.setText(jioText);
         profilePic = (ParseImageView)view.findViewById(R.id.profileImageView);
+        final TextView subtitleTextView = (TextView) view.findViewById(R.id.noOfJiosText);
         if(currentUser.getParseFile("profilePic")==null){
             profilePic.setImageDrawable(getResources().getDrawable(R.drawable.bojioicon));
         }
@@ -66,9 +67,18 @@ public class ProfileFragment extends Fragment {
             });
         }
 
-        ParseQuery<ParseUser> query = ParseUser.getQuery();
-        query.whereContainedIn("objectId", ParseUser.getCurrentUser().getList("friendsList"));
-        query.findInBackground(new FindCallback<ParseUser>() {
+        ParseQuery<ParseObject> query = new ParseQuery<>("Jio");
+        query.whereEqualTo("toUser", ParseUser.getCurrentUser().getUsername());
+        query.countInBackground(new CountCallback() {
+            @Override
+            public void done(int i, ParseException e) {
+                subtitleTextView.setText("Has been jio-ed " + String.valueOf(i) + " times.");
+            }
+        });
+
+        ParseQuery<ParseUser> query1 = ParseUser.getQuery();
+        query1.whereContainedIn("objectId", ParseUser.getCurrentUser().getList("friendsList"));
+        query1.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> parseUsers, ParseException e) {
                 for (int i = 0; i < parseUsers.size(); i++) {
@@ -113,16 +123,6 @@ public class ProfileFragment extends Fragment {
             final ParseObject currentTopImage = mFriends.get(position);
             TextView titleTextView = (TextView) row.findViewById(R.id.profileFriendUsernameTextView);
             titleTextView.setText(currentTopImage.getString("username"));
-            final TextView subtitleTextView = (TextView) row.findViewById(R.id.noOfJiosText);
-
-            ParseQuery<ParseObject> query = new ParseQuery<>("Jio");
-            query.whereEqualTo("toUser", ParseUser.getCurrentUser().getUsername());
-            query.countInBackground(new CountCallback() {
-                @Override
-                public void done(int i, ParseException e) {
-                    subtitleTextView.setText("Has been jioed " + String.valueOf(i) + " times.");
-                }
-            });
 
             //set like button status on create
             ParseImageView likeImageView = (ParseImageView) row.findViewById(R.id.profileFriendImageView);
