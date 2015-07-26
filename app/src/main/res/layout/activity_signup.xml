@@ -114,7 +114,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Be updated with all that's hot"
+        android:text="Never be bojio-ed again!"
         android:id="@+id/textView2"
         android:textStyle="italic"
         android:textColor="#fff"
