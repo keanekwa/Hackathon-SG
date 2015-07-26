@@ -84,7 +84,7 @@ public class MainActivity extends ActionBarActivity
                 break;
 
             case 1:
-                newFragment = new ActionFragment();
+                newFragment = new JioCentreFragment();
                 mTitle = getString(R.string.title_section2);
                 break;
 

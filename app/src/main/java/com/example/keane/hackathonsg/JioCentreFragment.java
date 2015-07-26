@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionFragment extends Fragment {
+public class JioCentreFragment extends Fragment {
 
     private ListView mListView;
     private ArrayList<ParseObject> mRequests;
@@ -43,7 +42,7 @@ public class ActionFragment extends Fragment {
 
     private TextView noData;
 
-    public ActionFragment() {
+    public JioCentreFragment() {
         // Required empty public constructor
     }
 
@@ -56,7 +55,7 @@ public class ActionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_action, container, false);
+        View view = inflater.inflate(R.layout.fragment_jio_centre, container, false);
         mListView = (ListView)view.findViewById(R.id.actionListView);
         noData = (TextView)view.findViewById(R.id.noData);
         noData.setText("");
