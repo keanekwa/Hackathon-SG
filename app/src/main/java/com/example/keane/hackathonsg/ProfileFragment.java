@@ -113,7 +113,7 @@ public class ProfileFragment extends Fragment {
             final ParseObject currentTopImage = mFriends.get(position);
             TextView titleTextView = (TextView) row.findViewById(R.id.friendUsernameTextView);
             titleTextView.setText(currentTopImage.getString("username"));
-            final TextView subtitleTextView = (TextView) row.findViewById(R.id.friendJioText);
+            final TextView subtitleTextView = (TextView) row.findViewById(R.id.noOfJiosText);
 
             ParseQuery<ParseObject> query = new ParseQuery<>("Jio");
             query.whereEqualTo("toUser", ParseUser.getCurrentUser().getUsername());
