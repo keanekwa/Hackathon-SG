@@ -2,10 +2,10 @@ package com.example.keane.hackathonsg;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +39,9 @@ public class JioActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jio);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+
         jioFriendsListView = (ListView)findViewById(R.id.jioFriendsList);
 
         Intent infoIntent = getIntent();
@@ -48,27 +51,15 @@ public class JioActivity extends ActionBarActivity {
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> parseUsers, ParseException e) {
-                if (e == null && parseUsers.size()>0) {
+                if (e == null && parseUsers.size() > 0) {
                     for (int i = 0; i < parseUsers.size(); i++) {
                         mFriends.add(parseUsers.get(i));
                     }
-                    Friends adapter = new Friends(JioActivity.this, R.layout.friends_list_adapter, mFriends);
+                    Friends adapter = new Friends(JioActivity.this, R.layout.jio_friends_list_adapter, mFriends);
                     jioFriendsListView.setAdapter(adapter);
                 }
-
             }
         });
-
-
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_jio, menu);
-        return true;
     }
 
     @Override
@@ -105,12 +96,10 @@ public class JioActivity extends ActionBarActivity {
             final ParseObject friend = mFriends.get(position);
             TextView titleTextView = (TextView) row.findViewById(R.id.friendUsernameTextView);
             titleTextView.setText(friend.getString("username"));
-            TextView makeBlank = (TextView)row.findViewById(R.id.friendJioText);
-            makeBlank.setText("");
 
             ParseImageView likeImageView = (ParseImageView) row.findViewById(R.id.friendImageView);
             likeImageView.setParseFile(friend.getParseFile("profilePic"));
-            likeImageView.setPlaceholder(getResources().getDrawable(R.drawable.defaultuserimage));
+            likeImageView.setPlaceholder(getResources().getDrawable(R.drawable.bojioicon));
             likeImageView.loadInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] bytes, ParseException e) {
@@ -135,15 +124,19 @@ public class JioActivity extends ActionBarActivity {
                             newObj.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
-                                    Toast.makeText(JioActivity.this, friend.getString("username")+" jioed!", Toast.LENGTH_SHORT).show();
-                                    jioButt.setVisibility(View.INVISIBLE);
+                                    Toast.makeText(JioActivity.this, friend.getString("username")+" jio-ed!", Toast.LENGTH_SHORT).show();
+                                    jioButt.setText("Jio-ed Liao");
+                                    jioButt.setClickable(false);
+                                    jioButt.setFocusable(false);
                                 }
                             });
                             }
                         });
                     }
                     else if (i>0){
-                        jioButt.setVisibility(View.INVISIBLE);
+                        jioButt.setText("Jio-ed Liao");
+                        jioButt.setClickable(false);
+                        jioButt.setFocusable(false);
                     }
                 }
             });

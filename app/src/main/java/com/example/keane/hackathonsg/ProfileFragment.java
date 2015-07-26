@@ -77,7 +77,7 @@ public class ProfileFragment extends Fragment {
                     friendsArray.add(parseUsers.get(i));
                 }
                 friendsList = (ListView) view.findViewById(R.id.friendsListView);
-                PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter, friendsArray);
+                PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.jio_friends_list_adapter, friendsArray);
                 friendsList.setAdapter(adapter);
             }
         });
@@ -122,8 +122,8 @@ public class ProfileFragment extends Fragment {
             final ParseObject currentTopImage = mFriends.get(position);
             TextView titleTextView = (TextView) row.findViewById(R.id.friendUsernameTextView);
             titleTextView.setText(currentTopImage.getString("username"));
-            TextView subtitleTextView = (TextView) row.findViewById(R.id.friendJioText);
-            subtitleTextView.setText("Has been jioed " + currentTopImage.getInt("noOfJios") + " times.");
+            //TextView subtitleTextView = (TextView) row.findViewById(R.id.friendJioText);
+           // subtitleTextView.setText("Has been jioed " + currentTopImage.getInt("noOfJios") + " times.");
 
             //set like button status on create
             ParseImageView likeImageView = (ParseImageView) row.findViewById(R.id.friendImageView);
