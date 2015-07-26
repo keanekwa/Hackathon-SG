@@ -1,10 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView" >
+
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
     tools:context="com.example.keane.hackathonsg.EventActivity"
     android:orientation="vertical"
     android:padding="10dp">
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,7 +19,7 @@
         android:id="@+id/eventTitle"
         android:textColor="#333"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="24sp"
         android:layout_marginBottom="5dp" />
 
     <TextView
@@ -21,53 +27,65 @@
         android:layout_height="wrap_content"
         android:text="Category"
         android:id="@+id/eventCategory"
-        android:layout_marginBottom="2dp" />
+        android:layout_marginBottom="4dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Location"
         android:id="@+id/eventLocation"
-        android:layout_marginBottom="2dp" />
+        android:layout_marginBottom="4dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date"
         android:id="@+id/eventDate"
-        android:layout_marginBottom="2dp" />
+        android:layout_marginBottom="4dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Organiser"
         android:id="@+id/eventOrganiser"
-        android:layout_marginBottom="2dp" />
+        android:layout_marginBottom="4dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Language"
         android:id="@+id/eventLanguage"
-        android:layout_marginBottom="2dp" />
+        android:layout_marginBottom="4dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rating"
         android:id="@+id/eventRating"
-        android:layout_marginBottom="2dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="jio friends"
-        android:id="@+id/eventJioButt"/>
+        android:layout_marginBottom="4dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Synopsis"
-        android:id="@+id/eventSynopsis" />
+        android:id="@+id/eventSynopsis"
+        android:textSize="16sp"
+        android:layout_marginBottom="4dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="jio friends"
+        android:id="@+id/eventJioButt"
+        android:textColor="@color/white"
+        android:background="@color/blue"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>
+</ScrollView>
