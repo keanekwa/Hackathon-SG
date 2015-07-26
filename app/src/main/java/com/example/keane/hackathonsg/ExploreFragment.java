@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
@@ -42,6 +43,10 @@ public class ExploreFragment extends Fragment {
     private Button mHotButton;
     public static Integer currentItem=0;
     public static String determinant;
+    private FloatingActionButton button1;
+    private FloatingActionButton button2;
+    private FloatingActionButton button3;
+    private FloatingActionButton button4;
 
 
     String COMING_UP_STRING = "Coming Up";
@@ -68,6 +73,7 @@ public class ExploreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
         mComingUpView = (ListView)view.findViewById(R.id.exploreListView);
         mComingUpButton = (Button) view.findViewById(R.id.comingUpButton);
+        button1 = (FloatingActionButton)view.findViewById(R.id.button1);
         mHotButton = (Button)view.findViewById(R.id.hotButton);
         if (determinant == null){
             determinant = "All Events";
@@ -100,6 +106,14 @@ public class ExploreFragment extends Fragment {
             }
         });
 
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CategoryDialog();
+            }
+        });
+
+
         return view;
     }
 
@@ -131,7 +145,6 @@ public class ExploreFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_categories) {
-            CategoryDialog();
             return true;
         }
 
