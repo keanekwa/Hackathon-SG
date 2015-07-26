@@ -1,64 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:weightSum="1"
     android:paddingBottom="16dp"
     android:paddingTop="14dp">
 
     <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="A"
+        android:id="@+id/exploreIcon"
+        android:textColor="#333"
+        android:textSize="28sp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:gravity="center"
+        android:background="@color/orange" />
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="title"
-        android:id="@+id/exploreTitle"
-        android:textSize="18sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textStyle="bold"
-        android:textColor="#333"/>
+        android:paddingRight="14dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Category: Some Category"
-        android:id="@+id/exploreCategory"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="-2dp"
-        android:textColor="#666"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:id="@+id/exploreTitle"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location: Singapore"
-        android:id="@+id/exploreLocation"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="-2dp"
-        android:textColor="#666" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category: Some Category"
+            android:id="@+id/exploreCategory"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="-2dp"
+            android:textColor="#666"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date: "
-        android:id="@+id/exploreDate"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="-2dp"
-        android:textColor="#666" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location: Singapore"
+            android:id="@+id/exploreLocation"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="-2dp"
+            android:textColor="#666" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Organiser: abc"
-        android:id="@+id/exploreOrganiser"
-        android:textColor="#666"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="-2dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: "
+            android:id="@+id/exploreDate"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="-2dp"
+            android:textColor="#666" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Organiser: abc"
+            android:id="@+id/exploreOrganiser"
+            android:textColor="#666"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="-2dp" />
+    </LinearLayout>
 
 </LinearLayout>

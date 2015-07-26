@@ -45,6 +45,8 @@ public class EventActivity extends ActionBarActivity {
     private TextView locTv;
     private TextView dateTv;
     private TextView orgTv;
+    private TextView lanTv;
+    private TextView ratTv;
     private TextView sypTv;
 
     public EventActivity() {
@@ -66,6 +68,8 @@ public class EventActivity extends ActionBarActivity {
         locTv = (TextView)findViewById(R.id.eventLocation);
         dateTv = (TextView)findViewById(R.id.eventDate);
         orgTv = (TextView)findViewById(R.id.eventOrganiser);
+        lanTv = (TextView)findViewById(R.id.eventLanguage);
+        ratTv = (TextView)findViewById(R.id.eventRating);
         sypTv = (TextView)findViewById(R.id.eventSynopsis);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("artsEvents");
@@ -107,11 +111,14 @@ public class EventActivity extends ActionBarActivity {
                         else dateTv.setText(Html.fromHtml("<b>Date:</b> " + event.getString("Date") + " - " + event.getString("Date2")));
                     }
 
-                    String sypText = "";
-                    if(event.getString("Language")!=null) sypText += ("Language: " + event.getString("Language").toLowerCase() + "\n");
-                    if(event.getString("Rating")!=null) sypText += ("Rating: " + event.getString("Rating") + "\n");
-                    if(event.getString("Synopsis")!=null) sypText += ("\n" + event.getString("Synopsis"));
-                    sypTv.setText(sypText);
+                    if(event.getString("Language")!=null) lanTv.setText(Html.fromHtml("<b>Language:</b> " + event.getString("Language")));
+                    else orgTv.setVisibility(View.GONE);
+
+                    if(event.getString("Rating")!=null) ratTv.setText(Html.fromHtml("<b>Rating:</b> " + event.getString("Rating")));
+                    else ratTv.setVisibility(View.GONE);
+
+                    if(event.getString("Synopsis")!=null) sypTv.setText(Html.fromHtml("<b>Synopsis:</b><br>" + event.getString("Synopsis")));
+                    else sypTv.setVisibility(View.GONE);
 
                     ParseQuery<ParseObject> query2 = ParseQuery.getQuery("UserData");
                     query2.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
@@ -142,6 +149,7 @@ public class EventActivity extends ActionBarActivity {
             }
         });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

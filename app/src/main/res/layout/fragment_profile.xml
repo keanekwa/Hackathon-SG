@@ -1,70 +1,72 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.example.keane.hackathonsg.ProfileFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context="com.example.keane.hackathonsg.ProfileFragment"
+    android:padding="15dp">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center">
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <com.parse.ParseImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/profileImageView"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:id="@+id/usernameText"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:id="@+id/noOfJiosText"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Your Friends"
-            android:id="@+id/textView"
-            android:layout_gravity="center"
-            android:textAlignment="gravity"/>
-
-        <ListView
-            android:layout_width="match_parent"
+        <com.parse.ParseImageView
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:id="@+id/friendsListView"
-            android:layout_gravity="center_horizontal|bottom"/>
+            android:id="@+id/profileImageView"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Large Text"
+                android:id="@+id/usernameText"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="22sp"
+                android:textColor="#333" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Large Text"
+                android:id="@+id/noOfJiosText"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="18sp"
+                android:textColor="#666" />
+        </RelativeLayout>
 
     </LinearLayout>
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Friends"
+        android:id="@+id/textView"
+        android:layout_gravity="center"
+        android:textAlignment="gravity"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
+        android:textColor="#333"
+        android:textSize="16sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/friendsListView"
+        android:layout_gravity="center_horizontal|bottom"/>
+
+</LinearLayout>

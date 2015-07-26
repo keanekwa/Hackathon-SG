@@ -70,7 +70,9 @@ public class MainActivity extends ActionBarActivity
             }
         });
     }
-
+    @Override
+    public void onBackPressed() {
+    }
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         Fragment newFragment = null;

@@ -54,7 +54,7 @@ public class ProfileFragment extends Fragment {
         jioTextView.setText(jioText);
         profilePic = (ParseImageView)view.findViewById(R.id.profileImageView);
         if(currentUser.getParseFile("profilePic")==null){
-            profilePic.setImageDrawable(getResources().getDrawable(R.drawable.defaultuserimage));
+            profilePic.setImageDrawable(getResources().getDrawable(R.drawable.bojioicon));
         }
         else{
             profilePic.setParseFile(currentUser.getParseFile("profilePic"));

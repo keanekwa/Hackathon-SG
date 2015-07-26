@@ -21,6 +21,7 @@ public class SplashScreenActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        getSupportActionBar().hide();
         ParseQuery<ParseObject> query = new ParseQuery<>("artsEvents");
         query.addAscendingOrder("Date");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -30,9 +31,11 @@ public class SplashScreenActivity extends ActionBarActivity {
                 ExploreFragment.allEvents = new ArrayList<>();
                 ExploreFragment.allEvents.addAll(ExploreFragment.artsEvents);
                 for (int i = 0; i < ExploreFragment.artsEvents.size(); i++) {
-                    ExploreFragment.artsEvents.get(i).put("Category", "Arts");
                     if (ExploreFragment.artsEvents.get(i).get("Rating")==null){
                         ExploreFragment.artsEvents.get(i).put("Rating", "General");
+                    }
+                    if (ExploreFragment.artsEvents.get(i).get("Category")==null){
+                        ExploreFragment.artsEvents.get(i).put("Category", "Arts");
                     }
                 }
                 ParseQuery<ParseObject> query2 = new ParseQuery<>("artsEvents");
@@ -51,8 +54,17 @@ public class SplashScreenActivity extends ActionBarActivity {
                             @Override
                             public void done(List<ParseObject> list3, ParseException e) {
                                 ExploreFragment.artsEvents3 = new ArrayList<>(list3);
+                                for (int i = 0; i < ExploreFragment.artsEvents3.size(); i++) {
+                                    if (ExploreFragment.artsEvents3.get(i).get("Rating")==null){
+                                        ExploreFragment.artsEvents3.get(i).put("Rating", "General");
+                                    }
+                                    if (ExploreFragment.artsEvents3.get(i).get("Category")==null){
+                                        ExploreFragment.artsEvents3.get(i).put("Category", "Arts");
+                                    }
+                                }
                                 ExploreFragment.allEvents3 = new ArrayList<>();
                                 ExploreFragment.allEvents3.addAll(ExploreFragment.artsEvents3);
+
                                 Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                                 startActivity(intent);
                             }
