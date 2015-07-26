@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -31,6 +32,7 @@ public class ProfileFragment extends Fragment {
     TextView usernameTextView;
     TextView jioTextView;
     ArrayList<ParseUser>friendsArray = new ArrayList<>();
+    FloatingActionButton fabFind;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -51,6 +53,7 @@ public class ProfileFragment extends Fragment {
         jioTextView = (TextView)view.findViewById(R.id.noOfJiosText);
         usernameTextView.setText(usernameText);
         jioTextView.setText(jioText);
+        fabFind = (FloatingActionButton)view.findViewById(R.id.friend_icon);
         profilePic = (ParseImageView)view.findViewById(R.id.profileImageView);
         if(currentUser.getParseFile("profilePic")==null){
             profilePic.setImageDrawable(getResources().getDrawable(R.drawable.bojioicon));
@@ -70,15 +73,21 @@ public class ProfileFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> parseUsers, ParseException e) {
-                for (int i = 0; i < parseUsers.size(); i++){
+                for (int i = 0; i < parseUsers.size(); i++) {
                     friendsArray.add(parseUsers.get(i));
                 }
-                    friendsList = (ListView)view.findViewById(R.id.friendsListView);
+                friendsList = (ListView) view.findViewById(R.id.friendsListView);
                 PhotosAdapter adapter = new PhotosAdapter(getActivity(), R.layout.friends_list_adapter, friendsArray);
                 friendsList.setAdapter(adapter);
             }
         });
-
+        fabFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*ragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container, new FriendsFragment()).commit();*/
+            }
+        });
         return view;
     }
 
