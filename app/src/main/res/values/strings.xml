@@ -23,6 +23,7 @@
     <string name="space">" "</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_jio">JioActivity</string>
     <string name="subtitle">Feeling bored? Jio or friends to the most exciting activities happening around Singapore or get your friends to jio you!</string>
     <string name="title_activity_maps">MapsActivity</string>
 </resources>

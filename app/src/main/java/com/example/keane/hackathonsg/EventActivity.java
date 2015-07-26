@@ -1,5 +1,6 @@
 package com.example.keane.hackathonsg;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -61,8 +62,6 @@ public class EventActivity extends ActionBarActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
 
         jioButt = (Button)findViewById(R.id.eventJioButt);
-        goButt = (Button)findViewById(R.id.eventGoButt);
-        pangButt = (Button)findViewById(R.id.eventPangButt);
 
         titleTv = (TextView)findViewById(R.id.eventTitle);
         catTv = (TextView)findViewById(R.id.eventCategory);
@@ -72,25 +71,6 @@ public class EventActivity extends ActionBarActivity {
         lanTv = (TextView)findViewById(R.id.eventLanguage);
         ratTv = (TextView)findViewById(R.id.eventRating);
         sypTv = (TextView)findViewById(R.id.eventSynopsis);
-
-        jioButt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setUserGoingOrJioed("jio");
-            }
-        });
-        goButt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setUserGoingOrJioed("go");
-            }
-        });
-        pangButt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setUserGoingOrJioed("pang");
-            }
-        });
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("artsEvents");
         query.getInBackground(eventId, new GetCallback<ParseObject>() {
@@ -147,15 +127,18 @@ public class EventActivity extends ActionBarActivity {
                         public void done(List<ParseObject> parseObjects, ParseException e) {
                             if(e==null && parseObjects.size()==1){
                                 currentUserData = parseObjects.get(0);
-                                wasUserGoing = Arrays.asList(currentUserData.get("goingTo")).contains(eventId);
-                                wasUserJioed = Arrays.asList(currentUserData.get("jioedTo")).contains(eventId);
-                                if (wasUserGoing) setUserGoingOrJioed("go");
-                                else {
-                                    goButt.setVisibility(View.VISIBLE);
-                                    pangButt.setVisibility(View.INVISIBLE);
-                                    jioButt.setVisibility(View.INVISIBLE);
-                                }
-                                if (wasUserJioed) setUserGoingOrJioed("jio");
+                                jioButt.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (ParseUser.getCurrentUser().getList("friendsList").size()==0){
+                                            Toast.makeText(EventActivity.this,"You do not have any friends D:",Toast.LENGTH_LONG);
+                                        }
+                                        else{
+                                        Intent intent = new Intent(EventActivity.this, JioActivity.class);
+                                        intent.putExtra("EVENT_ID", eventId);
+                                        startActivity(intent);
+                                    }}
+                                });
                             }
                         }
                     });
@@ -167,97 +150,6 @@ public class EventActivity extends ActionBarActivity {
         });
     }
 
-    private void setUserGoingOrJioed(final String info){
-        switch (info){
-            case "go":
-                if(currentUserData.get("goingTo")==null) currentUserData.put("goingTo", Arrays.asList(eventId));
-                else currentUserData.add("goingTo", eventId);
-                if(wasUserJioed) {
-                    currentUserData.removeAll("jioedTo", Arrays.asList(eventId));
-                }
-                goButt.setVisibility(View.INVISIBLE);
-                pangButt.setVisibility(View.VISIBLE);
-                jioButt.setVisibility(View.VISIBLE);
-                currentUserData.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e==null) Toast.makeText(EventActivity.this, "You're going for this event! :D", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                break;
-            case "pang":
-                if(wasUserJioed) {
-                    if(currentUserData.get("jioedTo")==null) currentUserData.put("jioedTo", Arrays.asList(eventId));
-                    else currentUserData.add("jioedTo", eventId);
-                }
-                currentUserData.removeAll("goingTo", Arrays.asList(eventId));
-                goButt.setVisibility(View.VISIBLE);
-                pangButt.setVisibility(View.INVISIBLE);
-                jioButt.setVisibility(View.INVISIBLE);
-                currentUserData.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e==null) Toast.makeText(EventActivity.this, "You just pangseh-ed ):", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                break;
-            case "jio":
-                final ListSelectorDialog friendsDialog = new ListSelectorDialog(EventActivity.this, "Friend to Jio");
-                ParseQuery<ParseUser> query = ParseUser.getQuery();
-                query.whereContainedIn("objectId", ParseUser.getCurrentUser().getList("friendsList"));
-                query.findInBackground(new FindCallback<ParseUser>() {
-                    @Override
-                    public void done(List<ParseUser> parseUsers, ParseException e) {
-                        if(e==null){
-                            List<String> usernameList = new ArrayList<>();
-                            for (int i =0; i<parseUsers.size(); i++){
-                                usernameList.add(parseUsers.get(i).getUsername());
-                            }
-                            String[] userArray = new String[usernameList.size()];
-                            userArray = usernameList.toArray(userArray);
-
-                            List<String> idList = new ArrayList<>();
-                            for (int i =0; i<parseUsers.size(); i++){
-                                idList.add(parseUsers.get(i).getObjectId());
-                            }
-                            String[] idArray = new String[idList.size()];
-                            idArray = idList.toArray(idArray);
-
-                            friendsDialog.show(userArray, idArray, new ListSelectorDialog.listSelectorInterface() {
-                                public void selectorCanceled() {
-                                    //Bloop
-                                }
-                                public void selectedItem(String key, String item) {
-                                    ParseQuery<ParseObject> query = new ParseQuery<>("UserData");
-                                    query.whereEqualTo("userId", item);
-                                    query.findInBackground(new FindCallback<ParseObject>() {
-                                        @Override
-                                        public void done(List<ParseObject> parseObjects, ParseException e) {
-                                            if(e==null && parseObjects.size()==1){
-                                                final ParseObject userData = parseObjects.get(0);
-                                                if(userData.getList("jioedTo")==null) {
-                                                    userData.put("jioedTo", eventId);
-                                                }
-                                                else{
-                                                    userData.addUnique("jioedTo", eventId);
-                                                }
-                                                userData.saveInBackground(new SaveCallback() {
-                                                    @Override
-                                                    public void done(ParseException e) {
-                                                        Toast.makeText(EventActivity.this, "Sucessfully jioed "+userData.getString("username"), Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    }
-                });
-                break;
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

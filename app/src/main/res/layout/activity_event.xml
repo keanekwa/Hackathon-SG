@@ -58,40 +58,11 @@
         android:id="@+id/eventRating"
         android:layout_marginBottom="2dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="go"
-            android:id="@+id/eventGoButt"
-            android:background="@color/blue"
-            android:textColor="@color/white" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="pangseh"
-            android:id="@+id/eventPangButt"
-            android:textColor="@color/white"
-            android:background="@color/blue" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="jio friends"
-            android:id="@+id/eventJioButt"
-            android:textColor="@color/white"
-            android:background="@color/blue" />
-
-        </LinearLayout>
+        android:text="jio friends"
+        android:id="@+id/eventJioButt"/>
 
     <TextView
         android:layout_width="wrap_content"
