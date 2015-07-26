@@ -69,21 +69,27 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="go"
-            android:id="@+id/eventGoButt"/>
+            android:id="@+id/eventGoButt"
+            android:background="@color/blue"
+            android:textColor="@color/white" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="pangseh"
-            android:id="@+id/eventPangButt"/>
+            android:id="@+id/eventPangButt"
+            android:textColor="@color/white"
+            android:background="@color/blue" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="jio friends"
-            android:id="@+id/eventJioButt"/>
+            android:id="@+id/eventJioButt"
+            android:textColor="@color/white"
+            android:background="@color/blue" />
 
         </LinearLayout>
 
