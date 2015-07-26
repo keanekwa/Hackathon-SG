@@ -27,18 +27,10 @@ import java.util.List;
 public class EventActivity extends ActionBarActivity {
 
     public static String eventId;
-    public static String eventLocation;
 
     private ParseObject event;
-    private String currentUserId;
-    private ParseObject currentUserData;
-
-    private Boolean wasUserJioed;
-    private Boolean wasUserGoing;
 
     private Button jioButt;
-    private Button goButt;
-    private Button pangButt;
 
     private TextView titleTv;
     private TextView catTv;
@@ -60,6 +52,9 @@ public class EventActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+
+        Intent intent = getIntent();
+        eventId = intent.getStringExtra("EVENT_ID");
 
         jioButt = (Button)findViewById(R.id.eventJioButt);
 
@@ -126,12 +121,11 @@ public class EventActivity extends ActionBarActivity {
                         @Override
                         public void done(List<ParseObject> parseObjects, ParseException e) {
                             if(e==null && parseObjects.size()==1){
-                                currentUserData = parseObjects.get(0);
                                 jioButt.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         if (ParseUser.getCurrentUser().getList("friendsList").size()==0){
-                                            Toast.makeText(EventActivity.this,"You do not have any friends D:",Toast.LENGTH_LONG);
+                                            Toast.makeText(EventActivity.this,"You do not have any friends D:",Toast.LENGTH_LONG).show();
                                         }
                                         else{
                                         Intent intent = new Intent(EventActivity.this, JioActivity.class);

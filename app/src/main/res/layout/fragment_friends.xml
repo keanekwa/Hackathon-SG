@@ -27,7 +27,7 @@
             android:layout_toStartOf="@+id/confirm_search_2"
             android:maxLines="1"
             android:singleLine="true"
-            android:paddingBottom="15dp"
+            android:paddingBottom="20dp"
             android:layout_weight="9" />
         <ImageButton
             android:layout_width="wrap_content"
@@ -39,7 +39,10 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:src="@drawable/ic_search_black_36dp"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:tint="@color/white"
+            android:background="@color/blue"
+            android:padding="5dp" />
 
     </LinearLayout>
 

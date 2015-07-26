@@ -204,7 +204,7 @@ public class ExploreFragment extends Fragment {
                            @Override
                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                Intent intent = new Intent(getActivity(), EventActivity.class);
-                               EventActivity.eventId = allEvents2.get(position).getObjectId();
+                               intent.putExtra("EVENT_ID", allEvents2.get(position).getObjectId());
                                startActivity(intent);
                            }
                        });
@@ -218,7 +218,7 @@ public class ExploreFragment extends Fragment {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 Intent intent = new Intent(getActivity(), EventActivity.class);
-                                EventActivity.eventId = allEvents3.get(position).getObjectId();
+                                intent.putExtra("EVENT_ID", allEvents3.get(position).getObjectId());
                                 startActivity(intent);
                             }
                         });
@@ -236,7 +236,7 @@ public class ExploreFragment extends Fragment {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 Intent intent = new Intent(getActivity(), EventActivity.class);
-                                EventActivity.eventId = artsEvents2.get(position).getObjectId();
+                                intent.putExtra("EVENT_ID", artsEvents2.get(position).getObjectId());
                                 startActivity(intent);
                             }
                         });
@@ -248,7 +248,7 @@ public class ExploreFragment extends Fragment {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 Intent intent = new Intent(getActivity(), EventActivity.class);
-                                EventActivity.eventId = artsEvents3.get(position).getObjectId();
+                                intent.putExtra("EVENT_ID", artsEvents3.get(position).getObjectId());
                                 startActivity(intent);
                             }
                         });
