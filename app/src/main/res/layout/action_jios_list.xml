@@ -8,42 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="10">
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_weight="2"
-        android:text="You jioed "/>
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_weight="2"
-        android:id="@+id/jiosToUserTv"
-        tools:text="ad"/>
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_weight="1"
-        tools:text="to"/>
+        android:weightSum="4">
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_weight="3"
-        android:id="@+id/jiosEventTv"
-        tools:text="VOICES"/>
+        android:id="@+id/jiosTv"
+        android:text="You jioed ad to VOICES"/>
 
     <Button
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:id="@+id/jiosEventButt"
         android:text="more info"/>
     </LinearLayout>

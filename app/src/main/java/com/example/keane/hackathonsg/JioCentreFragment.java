@@ -26,6 +26,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -260,19 +262,15 @@ public class JioCentreFragment extends Fragment {
                 row = LayoutInflater.from(getContext()).inflate(mResource, parent, false);
             }
             final ParseObject jio = mJiosList.get(pos);
+            final TextView jiosTv = (TextView)row.findViewById(R.id.jiosTv);
+            final TextView statusTv = (TextView)row.findViewById(R.id.jiosStatusTv);
 
-            TextView jiosToUserTv = (TextView)row.findViewById(R.id.jiosToUserTv);
-            final TextView jiosEventTv = (TextView)row.findViewById(R.id.jiosEventTv);
-            final Button jiosButt = (Button)row.findViewById(R.id.jiosEventButt);
-            final TextView statusTv = (TextView) row.findViewById(R.id.jiosStatusTv);
-
-            jiosToUserTv.setText(jio.getString("toUser"));
             ParseQuery<ParseObject> query = new ParseQuery<>("artsEvents");
             query.getInBackground(jio.getString("eventId"), new GetCallback<ParseObject>() {
                 @Override
                 public void done(final ParseObject event, ParseException e) {
                     if(e==null){
-                        jiosEventTv.setText(event.getString("Title"));
+                        jiosTv.setText("You jio-ed " + jio.getString("toUser") + " to " + event.getString("Title"));
                         jiosButt.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -318,20 +316,17 @@ public class JioCentreFragment extends Fragment {
             }
             final ParseObject jio = mJioedList.get(pos);
 
-            TextView jioFromUserTv = (TextView)row.findViewById(R.id.jioedFromUserTv);
-            final TextView jioedEventTv = (TextView)row.findViewById(R.id.jioedEventTv);
+            final TextView jioedTv = (TextView)row.findViewById(R.id.jioedTv);
             final Button jioedEventButt = (Button)row.findViewById(R.id.jioedEventButt);
             final Button jioedAcceptButt = (Button)row.findViewById(R.id.jioedAcceptButt);
             final Button jioedDeclineButt = (Button)row.findViewById(R.id.jioedDeclineButt);
-
-            jioFromUserTv.setText(jio.getString("fromUser"));
 
             ParseQuery<ParseObject> query = new ParseQuery<>("artsEvents");
             query.getInBackground(jio.getString("eventId"), new GetCallback<ParseObject>() {
                 @Override
                 public void done(final ParseObject event, ParseException e) {
                     if(e==null){
-                        jioedEventTv.setText(event.getString("Title"));
+                        jioedTv.setText(jio.getString("fromUser") + " jio-ed you to " + event.getString("Title"));
                         jioedEventButt.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
