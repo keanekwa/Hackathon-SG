@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     tools:context="com.example.keane.hackathonsg.ProfileFragment"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:padding="15dp">
 
     <LinearLayout
@@ -72,15 +71,6 @@
         android:id="@+id/friendsListView"
         android:layout_gravity="center_horizontal|bottom"/>
 
-    <com.getbase.floatingactionbutton.AddFloatingActionButton
-        android:id="@+id/friend_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        fab:fab_icon="@drawable/addfriend"
-        fab:fab_colorNormal="@color/icon2"
-        fab:fab_colorPressed="@color/icon3"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/></RelativeLayout>
+    </RelativeLayout>
 
 </LinearLayout>
