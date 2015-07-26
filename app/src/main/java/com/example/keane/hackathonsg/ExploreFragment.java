@@ -132,7 +132,7 @@ public class ExploreFragment extends Fragment {
         mMenu = menu;
         inflater.inflate(R.menu.menu_explore, menu);
         MenuItem item = mMenu.findItem(R.id.action_categories);
-        item.setTitle("Category:" + getString(R.string.space) + "All Events");
+        item.setTitle("All Events");
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -159,7 +159,7 @@ public class ExploreFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 List<String> array = Arrays.asList(getResources().getStringArray(R.array.mCategoryList));
                 MenuItem item = mMenu.findItem(R.id.action_categories);
-                item.setTitle("Category:" + getString(R.string.space) + array.get(which));
+                item.setTitle(array.get(which));
                 determinant = array.get(which);
                 setExploreListView(array.get(which));
             }

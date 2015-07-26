@@ -207,6 +207,8 @@ public class JioCentreFragment extends Fragment {
                     friendship.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
+                            mRequests.remove(friendship);
+                            setListView("request");
                             ParseUser.getCurrentUser().addUnique("friendsList", friendship.getString("fromId"));
                             ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
                                 @Override
@@ -232,7 +234,7 @@ public class JioCentreFragment extends Fragment {
                     }
                 });
                 likeImageView.setParseFile(friendship.getParseFile("profilePic"));
-                likeImageView.setPlaceholder(getResources().getDrawable(R.drawable.defaultuserimage));
+                likeImageView.setPlaceholder(getResources().getDrawable(R.drawable.bojioicon));
                 likeImageView.loadInBackground(new GetDataCallback() {
                     @Override
                     public void done(byte[] bytes, ParseException e) {

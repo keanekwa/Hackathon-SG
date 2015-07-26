@@ -55,16 +55,17 @@
 
 
 
-            <com.getbase.floatingactionbutton.AddFloatingActionButton
+            <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:fab_icon="@drawable/addfriend"
                 fab:fab_colorNormal="@color/icon2"
                 fab:fab_colorPressed="@color/icon3"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_search_black_36dp"
+                android:tint="@color/white" />
 
 
 
