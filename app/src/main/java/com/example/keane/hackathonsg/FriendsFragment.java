@@ -139,7 +139,7 @@ public class FriendsFragment extends Fragment {
             //set like button status on create
             ParseImageView likeImageView = (ParseImageView) row.findViewById(R.id.friendImageView2);
             likeImageView.setParseFile(user.getParseFile("profilePic"));
-            likeImageView.setPlaceholder(getResources().getDrawable(R.drawable.defaultuserimage));
+            likeImageView.setPlaceholder(getResources().getDrawable(R.drawable.bojioicon));
             likeImageView.loadInBackground(new GetDataCallback() {
                 @Override
                 public void done(byte[] bytes, ParseException e) {
